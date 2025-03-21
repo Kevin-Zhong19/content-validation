@@ -19,8 +19,8 @@ namespace DataSource
 
             IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
-            // string? package = "functions/functions-javalibrary";
-            // string? language = "java";
+            // string? package = "communication-jobrouter-readme";
+            // string? language = "python";
             // string branch = "main";
             // string? cookieName = "";
             // string? cookieValue = "";
@@ -63,15 +63,15 @@ namespace DataSource
         {
 
             // If the current page meets the IsTrue condition, call GetAllPages directly.
-            // if (IsTrue(pagelink, cookieName, cookieVal))
-            // {
+            if (IsTrue(pagelink, cookieName, cookieVal))
+            {
                 
-            //     int lastSlashIndex = pagelink.LastIndexOf('/');
-            //     string baseUri = pagelink.Substring(0, lastSlashIndex + 1);
-            //     allPages.Add(pagelink);
-            //     GetAllPages(pagelink, baseUri, allPages, branch, cookieName, cookieVal);
-            //     return;
-            // }
+                int lastSlashIndex = pagelink.LastIndexOf('/');
+                string baseUri = pagelink.Substring(0, lastSlashIndex + 1);
+                allPages.Add(pagelink);
+                GetAllPages(pagelink, baseUri, allPages, branch, cookieName, cookieVal);
+                return;
+            }
 
             // Launch a browser
             var playwright = await Playwright.CreateAsync();
@@ -198,7 +198,20 @@ namespace DataSource
             return checks.Any(check =>
             {
                 string? hNode = doc.DocumentNode.SelectSingleNode(check.XPath)?.InnerText?.Trim();
-                return !string.IsNullOrEmpty(hNode) && hNode.Contains(check.Content);
+                if (!string.IsNullOrEmpty(hNode) && hNode.Contains(check.Content))
+                {
+                    // Check for the presence of <table> tags
+                    var tableNode = doc.DocumentNode.SelectSingleNode("//table");
+                    if (tableNode != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return false;
             });
         }
 
