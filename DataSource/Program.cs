@@ -77,7 +77,7 @@ namespace DataSource
             var playwright = await Playwright.CreateAsync();
             var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                Headless = true
+                Headless = false
             });
 
             var context = await ConfigureBrowserContextAsync(browser, branch, cookieName, cookieVal);
@@ -95,11 +95,26 @@ namespace DataSource
                     break;
                 }
 
-                await page.GotoAsync(pagelink, new PageGotoOptions
+                try
                 {
-                    WaitUntil = WaitUntilState.NetworkIdle,
-                    Timeout = 60000
-                });
+                    await page.GotoAsync(pagelink, new PageGotoOptions
+                    {
+                        WaitUntil = WaitUntilState.NetworkIdle,
+                        Timeout = 60000 // 超时时间设置为 60 秒
+                    });
+                    Console.WriteLine("页面加载完成");
+                }
+                catch (TimeoutException)
+                {
+                    Console.WriteLine("页面加载超时");
+                }
+
+                // await page.GotoAsync(pagelink, new PageGotoOptions
+                // {
+                //     WaitUntil = WaitUntilState.NetworkIdle,
+                //     Timeout = 60000
+                // });
+
                 // Get all child pages
                 links = await page.Locator("li.tree-item.is-expanded ul.tree-group a").AllAsync();
 
