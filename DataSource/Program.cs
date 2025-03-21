@@ -19,6 +19,12 @@ namespace DataSource
 
             IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
+            // string? package = "functions/functions-javalibrary";
+            // string? language = "java";
+            // string branch = "main";
+            // string? cookieName = "";
+            // string? cookieValue = "";
+
             string? package = config["ReadmeName"];
             string? language = config["Language"];
             string branch = config["Branch"]!;
@@ -33,7 +39,13 @@ namespace DataSource
 
             await GetAllChildPage(pages, allPages, pagelink, branch, cookieName, cookieValue);
 
-            ExportData(allPages);
+            foreach (var page in allPages)
+            {
+                Console.WriteLine(page);
+            }
+            Console.WriteLine(allPages.Count);
+
+            // ExportData(allPages);
         }
 
         static string GetLanguagePageOverview(string? language, string branch = "")
@@ -51,15 +63,15 @@ namespace DataSource
         {
 
             // If the current page meets the IsTrue condition, call GetAllPages directly.
-            if (IsTrue(pagelink, cookieName, cookieVal))
-            {
+            // if (IsTrue(pagelink, cookieName, cookieVal))
+            // {
                 
-                int lastSlashIndex = pagelink.LastIndexOf('/');
-                string baseUri = pagelink.Substring(0, lastSlashIndex + 1);
-                allPages.Add(pagelink);
-                GetAllPages(pagelink, baseUri, allPages, branch, cookieName, cookieVal);
-                return;
-            }
+            //     int lastSlashIndex = pagelink.LastIndexOf('/');
+            //     string baseUri = pagelink.Substring(0, lastSlashIndex + 1);
+            //     allPages.Add(pagelink);
+            //     GetAllPages(pagelink, baseUri, allPages, branch, cookieName, cookieVal);
+            //     return;
+            // }
 
             // Launch a browser
             var playwright = await Playwright.CreateAsync();
