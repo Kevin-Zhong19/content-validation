@@ -19,8 +19,8 @@ namespace DataSource
 
             IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
-            // string? package = "communication-jobrouter-readme";
-            // string? language = "python";
+            // string? package = "messaging-servicebus-readme";
+            // string? language = "java";
             // string branch = "main";
             // string? cookieName = "";
             // string? cookieValue = "";
@@ -97,7 +97,8 @@ namespace DataSource
 
                 await page.GotoAsync(pagelink, new PageGotoOptions
                 {
-                    WaitUntil = WaitUntilState.NetworkIdle
+                    WaitUntil = WaitUntilState.NetworkIdle,
+                    Timeout = 60000
                 });
                 // Get all child pages
                 links = await page.Locator("li.tree-item.is-expanded ul.tree-group a").AllAsync();
