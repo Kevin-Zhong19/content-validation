@@ -39,13 +39,13 @@ namespace DataSource
 
             await GetAllChildPage(pages, allPages, pagelink, branch, cookieName, cookieValue);
 
-            foreach (var page in allPages)
-            {
-                Console.WriteLine(page);
-            }
-            Console.WriteLine(allPages.Count);
+            // foreach (var page in allPages)
+            // {
+            //     Console.WriteLine(page);
+            // }
+            // Console.WriteLine(allPages.Count);
 
-            // ExportData(allPages);
+            ExportData(allPages);
         }
 
         static string GetLanguagePageOverview(string? language, string branch = "")
