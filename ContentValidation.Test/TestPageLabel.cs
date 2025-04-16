@@ -49,7 +49,6 @@ namespace ContentValidation.Test
 
         [Test]
         [Category("PythonTest")]
-        [Category("JavaTest")]
         [Category("JsTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestExtraLabel(string testLink)
@@ -81,7 +80,6 @@ namespace ContentValidation.Test
 
         [Test]
         [Category("PythonTest")]
-        [Category("JavaTest")]
         [Category("JsTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestUnnecessarySymbols(string testLink)
