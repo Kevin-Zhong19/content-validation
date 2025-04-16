@@ -49,7 +49,6 @@ namespace ContentValidation.Test
 
         [Test]
         [Category("PythonTest")]
-        [Category("JavaTest")]
         [Category("JsTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestExtraLabel(string testLink)
@@ -81,7 +80,6 @@ namespace ContentValidation.Test
 
         [Test]
         [Category("PythonTest")]
-        [Category("JavaTest")]
         [Category("JsTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestUnnecessarySymbols(string testLink)
@@ -114,7 +112,6 @@ namespace ContentValidation.Test
         }
 
         [Test]
-        [Category("JavaTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestInvalidTags(string testLink)
         {
@@ -146,7 +143,6 @@ namespace ContentValidation.Test
         }
         
         [Test]
-        [Category("JavaTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestCodeFormat(string testLink)
         {
