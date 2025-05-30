@@ -63,7 +63,7 @@ public class UnnecessarySymbolsValidation : IValidation
             res.Result = false;
             res.ErrorLink = testLink;
             res.NumberOfOccurrences = errorList.Count;
-            res.ErrorInfo = $"Unnecessary symbols found: {string.Join(" ,", valueSet)}";
+            res.ErrorInfo = $"Unnecessary symbols found: `{string.Join(" ,", valueSet)}`";
             res.LocationsOfErrors = formattedList;
         }
 

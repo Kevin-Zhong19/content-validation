@@ -46,7 +46,6 @@
             "azure-communication-sms",
             "azure-confidential-ledger",
             "azure-container-registry",
-            "azure-core",
             "azure-cosmos",
             "azure-data-tables",
             "azure-developer-devcenter",

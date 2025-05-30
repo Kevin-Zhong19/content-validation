@@ -333,6 +333,26 @@
                 "IgnoreText": "\\s\\(\\s*[-+]?[a-zA-Z]+\\s*,\\s*[-+]?[a-zA-Z]+\\s*\\)",
                 "Usage":"regular",
                 "Description": "Example: LROPoller[KeyVaultCertificate,CertificateOperation] , Link: https://learn.microsoft.com/en-us/python/api/azure-keyvault-certificates/azure.keyvault.certificates.certificateclient?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "\\[\\s*[-+]?\\d+(\\.\\d+)?\\s*,\\s*[-+]?\\d+(\\.\\d+)?\\s*\\]",
+                "Usage": "regular",
+                "Description": "Matches expressions like [0.25, 0.75]"
+            },
+            {
+                "IgnoreText": "\\[\\s*[-+]?\\d+(\\.\\d+)?\\s*,\\s*[-+]?\\d+(\\.\\d+)?\\s*\\)",
+                "Usage": "regular",
+                "Description": "Matches expressions like [0.25, 0.75)"
+            },
+            {
+                "IgnoreText": "\\(\\s*[-+]?\\d+(\\.\\d+)?\\s*,\\s*[-+]?\\d+(\\.\\d+)?\\s*\\]",
+                "Usage": "regular",
+                "Description": "Matches expressions like (0.25, 0.75]"
+            },
+            {
+                "IgnoreText": "\\(\\s*[-+]?\\d+(\\.\\d+)?\\s*,\\s*[-+]?\\d+(\\.\\d+)?\\s*\\)",
+                "Usage": "regular",
+                "Description": "Matches expressions like (0.25, 0.75)"
             }
         ]
     },
@@ -418,6 +438,26 @@
                 "IgnoreText": ":acs:",
                 "Usage":"",
                 "Description": " CommunicationUserIdentifier(\"8:acs:...\"), Link: https://learn.microsoft.com/en-us/python/api/overview/azure/communication-callautomation-readme?view=azure-python-preview&branch=main"
+            },
+            {
+                "IgnoreText": ":23:",
+                "Usage":"",
+                "Description": " 2015-04-13T05:23:39, Link: https://learn.microsoft.com/en-us/javascript/api/@azure/cognitiveservices-websearch/websearchmodels.webpage?view=azure-node-latest&branch=main"
+            },
+            {
+                "IgnoreText": ":19:",
+                "Usage":"",
+                "Description": " 2021-02-16T14:19:29Z, Link: https://learn.microsoft.com/en-us/javascript/api/@azure/functions/cosmosdbv4functionoptions?view=azure-node-latest&branch=main"
+            },
+            {
+                "IgnoreText": ":01:",
+                "Usage":"",
+                "Description": " 2014-10-02T15:01:23.045123456Z, Link: https://learn.microsoft.com/en-us/javascript/api/@azure/notification-hubs/admnativenotification?view=azure-node-latest&branch=main"
+            },
+            {
+                "IgnoreText": ":44:",
+                "Usage":"",
+                "Description": " 2018-12-31T03:44:23.882Z, Link: https://learn.microsoft.com/en-us/javascript/api/@azure/storage-file-datalake/datalakefilesystemclient?view=azure-node-preview&branch=main"
             }
         ]
     },
@@ -463,6 +503,31 @@
                 "IgnoreText": "values",
                 "Usage":"contains",
                 "Description": "Example: "
+            },
+            {
+                "IgnoreText": "pop",
+                "Usage":"contains",
+                "Description": "Example: pop(k, [d]) , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "setdeault",
+                "Usage":"contains",
+                "Description": "Example: setdefault(key, default=None, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "popitem",
+                "Usage":"contains",
+                "Description": "Example: popitem() , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "count",
+                "Usage":"contains",
+                "Description": "Example: count(value, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-data-tables/azure.data.tables.entityproperty?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "index",
+                "Usage":"contains",
+                "Description": "Example: index(value, start=0, stop=9223372036854775807, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-cosmos/azure.cosmos.cosmoslist?view=azure-python-preview&branch=main"
             },
             {
                 "IgnoreText": ":",

@@ -42,7 +42,7 @@ public class InconsistentTextFormatValidation : IValidation
 
                 var anchorLink = string.IsNullOrEmpty(headerId) ? $"{testLink}" : $"{testLink}#{headerId}";
                 errorList.Add(text);
-                errorLocation.Add(anchorLink);
+                errorLocation.Add(" https://learn." + anchorLink);
             }
 
             res.Result = false;
