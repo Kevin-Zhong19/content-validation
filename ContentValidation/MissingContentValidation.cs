@@ -32,16 +32,19 @@ public class MissingContentValidation : IValidation
         // Check if the cell is empty. If it is, retrieve the href attribute of the anchor tag above it for positioning.
         foreach (var cell in cellElements)
         {
-            if (skipFlag == true)
+            if (skipFlag)
             {
                 skipFlag = false;
                 continue;
             }
 
             var cellText = (await cell.InnerTextAsync()).Trim();
-            if (ignoreList.Any(item => cellElements.Equals(item.IgnoreText)))
+
+            // Skip cells that match the ignore list
+            if (ignoreList.Any(item => cellText.Equals(item.IgnoreText, StringComparison.OrdinalIgnoreCase)))
             {
                 skipFlag = true;
+                continue;
             }
 
             // Usage: Check if it is an empty cell and get the href attribute of the nearest <a> tag with a specific class name before it. Finally, group and format these errors by position and number of occurrences.
@@ -49,42 +52,36 @@ public class MissingContentValidation : IValidation
             // Link: https://learn.microsoft.com/en-us/python/api/azure-ai-textanalytics/azure.ai.textanalytics.aio.asyncanalyzeactionslropoller?view=azure-python
             if (string.IsNullOrEmpty(cellText))
             {
-                // Console.WriteLine($"Cell Text: {cellText}");
                 string anchorLink = "No anchor link found, need to manually search for empty cells on the page.";
+
+                // Find the nearest heading text
                 var nearestHTagText = await cell.EvaluateAsync<string?>(@"element => {
                     function findNearestHeading(startNode) {
                         let currentNode = startNode;
-                        
+
                         while (currentNode && currentNode.tagName !== 'BODY' && currentNode.tagName !== 'HTML') {
-                            // Check the sibling nodes and child nodes of the current node
                             let sibling = currentNode.previousElementSibling;
                             while (sibling) {
-                                // Check if the sibling node itself is an <h2> or <h3>
                                 if (['H2', 'H3'].includes(sibling.tagName)) {
-                                    return sibling.textContent || '';
+                                    return sibling.textContent?.trim() || '';
                                 }
-                                
-                                // Recursively check the children of sibling nodes
+
                                 let childHeading = findNearestHeadingInChildren(sibling);
                                 if (childHeading) {
                                     return childHeading;
                                 }
-                                
+
                                 sibling = sibling.previousElementSibling;
                             }
-                            
-                            // If not found in the sibling node, continue traversing upwards
                             currentNode = currentNode.parentElement;
                         }
-                        
-                        return null; // If no matching <h> tags are found
+                        return null;
                     }
-                    
+
                     function findNearestHeadingInChildren(node) {
-                        // Traverse the child nodes and recursively search for <h2> or <h3>
                         for (let child of node.children) {
                             if (['H2', 'H3'].includes(child.tagName)) {
-                                return child.textContent || '';
+                                return child.textContent?.trim() || '';
                             }
                             let grandChildHeading = findNearestHeadingInChildren(child);
                             if (grandChildHeading) {
@@ -93,40 +90,53 @@ public class MissingContentValidation : IValidation
                         }
                         return null;
                     }
-                    
+
                     return findNearestHeading(element);
                 }");
 
-                if (nearestHTagText != null)
+                if (!string.IsNullOrEmpty(nearestHTagText))
                 {
                     nearestHTagText = nearestHTagText.Replace("\n", "").Replace("\t", "");
+
+                    if(ignoreList.Any(item => nearestHTagText.Equals(item.IgnoreText, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        continue; // Skip if the nearest heading text is in the ignore list
+                    }
+                    
                     var aLocators = page.Locator("#side-doc-outline a");
                     var aElements = await aLocators.ElementHandlesAsync();
 
                     foreach (var elementHandle in aElements)
                     {
-                        if (await elementHandle.InnerTextAsync() == nearestHTagText)
+                        var linkText = (await elementHandle.InnerTextAsync())?.Trim();
+                        if (linkText == nearestHTagText)
                         {
                             var href = await elementHandle.GetAttributeAsync("href");
-                            if (href != null)
+                            if (!string.IsNullOrEmpty(href))
                             {
                                 anchorLink = testLink + href;
+                                break; // Exit loop once the matching link is found
                             }
                         }
                     }
                 }
-                if (!anchorLink.Contains("#packages") && !anchorLink.Contains("#modules"))
+
+                // Add the anchor link to the error list if it doesn't match excluded patterns
+                if (!anchorLink.Contains("#packages", StringComparison.OrdinalIgnoreCase) &&
+                    !anchorLink.Contains("#modules", StringComparison.OrdinalIgnoreCase))
                 {
                     errorList.Add(anchorLink);
                 }
             }
         }
 
+        // Format the error list
         var formattedList = errorList
             .GroupBy(item => item)
-            .Select((group, Index) => $"{Index + 1}. Appears {group.Count()} times , location : {group.Key}")
+            .Select((group, index) => $"{index + 1}. Appears {group.Count()} times , location : {group.Key}")
             .ToList();
 
+        // Update the result object
         if (errorList.Count > 0)
         {
             res.Result = false;

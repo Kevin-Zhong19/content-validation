@@ -34,22 +34,36 @@ namespace DataSource
             string? cookieValue = config["CookieValue"];
 
             string? versionSuffix = ChooseGAOrPreview(language, package);
-            
+
+            if (versionSuffix == null)
+            {
+                throw new ArgumentNullException(nameof(versionSuffix), "VersionSuffix cannot be null.");
+            }
+
             string? pageLink = GetPackagePageOverview(language, readme, versionSuffix, branch);
 
             Console.WriteLine($"Page link: {pageLink}");
 
             List<string> allPages = new List<string>();
 
-            await GetAllDataSource(allPages, language, versionSuffix, pageLink, cookieName, cookieValue, branch);
+            if (string.IsNullOrEmpty(language) || string.IsNullOrEmpty(versionSuffix) || string.IsNullOrEmpty(pageLink))
+            {
+                throw new ArgumentException("Language, VersionSuffix, and PageLink cannot be null or empty.");
+            }
+
+            await GetAllDataSource(allPages, language, versionSuffix, pageLink, cookieName ?? string.Empty, cookieValue ?? string.Empty, branch);
 
             ExportData(allPages);
         }
 
-        static string GetPackagePageOverview(string? language, string readme, string versionSuffix, string branch = "")
+        static string GetPackagePageOverview(string? language, string? readme, string versionSuffix, string branch = "")
         {
-            language = language?.ToLower();
+            if (string.IsNullOrEmpty(readme) || string.IsNullOrEmpty(versionSuffix))
+            {
+                throw new ArgumentException("Readme and VersionSuffix cannot be null or empty.");
+            }
 
+            language = language?.ToLower();
             
             if (branch != "main")
             {
@@ -371,7 +385,7 @@ namespace DataSource
                 CookieContainer = new CookieContainer()
             };
 
-            var cookie = new System.Net.Cookie(cookieName, cookieVal)
+            var cookie = new System.Net.Cookie(cookieName ?? string.Empty, cookieVal ?? string.Empty)
             {
                 Domain = "review.learn.microsoft.com",
             };
@@ -391,7 +405,7 @@ namespace DataSource
             return doc;
         }
 
-        static async Task GetAllDataSource(List<string> allPages, string language, string versionSuffix, string pageLink, string cookieName, string cookieValue, string branch)
+        static async Task GetAllDataSource(List<string> allPages, string? language, string versionSuffix, string pageLink, string cookieName, string cookieValue, string branch)
         {
             List<string> pages = new List<string>();
             List<string> childPage = new List<string>();
@@ -483,7 +497,7 @@ namespace DataSource
 
         static List<string> GetLanguageChildPage(string? language, string versionSuffix, List<string> childPage, List<string> childLink, string branch = "")
         {
-            string link = null;
+            string? link = null;
             language = language?.ToLower();
             if(language == "python"){
                 foreach (var page in childPage)
@@ -535,9 +549,9 @@ namespace DataSource
 
     public class PackageCSV
     {
-        public string Package { get; set; }
-        public string VersionGA { get; set; }
-        public string VersionPreview { get; set; }
+        public string Package { get; set; } = string.Empty;
+        public string VersionGA { get; set; } = string.Empty;
+        public string VersionPreview { get; set; } = string.Empty;
     }
 
     public class PythonPackageMap : ClassMap<PackageCSV>
