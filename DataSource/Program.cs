@@ -19,6 +19,7 @@ namespace DataSource
         private static readonly string PYTHON_DATA_SDK_RELEASES_LATEST_CSV_URL = "https://raw.githubusercontent.com/Azure/azure-sdk/main/_data/releases/latest/python-packages.csv";
         private static readonly string JAVA_DATA_SDK_RELEASES_LATEST_CSV_URL = "https://raw.githubusercontent.com/Azure/azure-sdk/main/_data/releases/latest/java-packages.csv";
         private static readonly string JAVASCRIPT_DATA_SDK_RELEASES_LATEST_CSV_URL = "https://raw.githubusercontent.com/Azure/azure-sdk/main/_data/releases/latest/js-packages.csv";
+        private static readonly string DOTNET_DATA_SDK_RELEASES_LATEST_CSV_URL = "https://raw.githubusercontent.com/Azure/azure-sdk/main/_data/releases/latest/dotnet-packages.csv";
         static async Task Main(string[] args)
         {
             // Default Configuration
@@ -42,14 +43,7 @@ namespace DataSource
 
             string? pageLink = GetPackagePageOverview(language, readme, versionSuffix, branch);
 
-            Console.WriteLine($"Page link: {pageLink}");
-
             List<string> allPages = new List<string>();
-
-            if (string.IsNullOrEmpty(language) || string.IsNullOrEmpty(versionSuffix) || string.IsNullOrEmpty(pageLink))
-            {
-                throw new ArgumentException("Language, VersionSuffix, and PageLink cannot be null or empty.");
-            }
 
             await GetAllDataSource(allPages, language, versionSuffix, pageLink, cookieName ?? string.Empty, cookieValue ?? string.Empty, branch);
 
@@ -91,6 +85,11 @@ namespace DataSource
             {
                 url = JAVASCRIPT_DATA_SDK_RELEASES_LATEST_CSV_URL;
                 return CompareGAAndPreview(url, package, language).Result == "GA" ? "view=azure-node-latest" : "view=azure-node-preview";
+            }
+            else if (language == "dotnet")
+            {
+                url = DOTNET_DATA_SDK_RELEASES_LATEST_CSV_URL;
+                return CompareGAAndPreview(url, package, language).Result == "GA" ? "view=azure-node" : "view=azure-dotnet-preview";
             }
             else
             {
@@ -347,7 +346,11 @@ namespace DataSource
                 new { XPath = "//h2[@id='functions']", Content = "Functions" },
                 new { XPath = "//h2[@id='enums']", Content = "Enums" },
                 new { XPath = "//h2[@id='modules']", Content = "Modules" },
-                new { XPath = "//h2[@id='packages']", Content = "Packages" }
+                new { XPath = "//h2[@id='packages']", Content = "Packages" },
+                new { XPath = "//h2[@id='constructors']", Content = "Constructors" },
+                new { XPath = "//h2[@id='properties']", Content = "Properties" },
+                new { XPath = "//h2[@id='methods']", Content = "Methods" },
+                new { XPath = "//h2[@id='operators']", Content = "Operators" }
             };
 
             return checks.Any(check =>

@@ -11,7 +11,7 @@ public class MissingContentValidation : IValidation
         _playwright = playwright ?? throw new ArgumentNullException(nameof(playwright));
     }
 
-    public List<IgnoreItem> ignoreList = IgnoreData.GetIgnoreList("MissingContentValidation", "equal");
+    public List<IgnoreItem> ignoreList = IgnoreData.GetIgnoreList("MissingContentValidation", "subset");
 
     public async Task<TResult> Validate(string testLink)
     {

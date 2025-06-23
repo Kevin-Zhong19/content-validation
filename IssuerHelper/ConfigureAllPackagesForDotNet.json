@@ -1,0 +1,8 @@
+[
+    {
+        "packages": [
+            "azure-storage-blobs-batch",
+            "azure-storage-blobs"
+        ]
+    }
+]

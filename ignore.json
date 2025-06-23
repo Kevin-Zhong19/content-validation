@@ -18,6 +18,11 @@
                 "Description": "Example: as_dict(keep_readonly: bool = True, key_transformer: ~typing.Callable , Link: https://learn.microsoft.com/en-us/python/api/azure-search-documents/azure.search.documents.indexes.models.aiservicesaccountidentity?view=azure-python-preview&branch=main"
             },
             {
+                "IgnoreText": "generate_account_sas",
+                "Usage":"start",
+                "Description": "Example: generate_account_sas(account_name: str , Link: https://learn.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake?view=azure-python-preview"
+            },
+            {
                 "IgnoreText": "LROPoller",
                 "Usage":"prefix",
                 "Description": "Example: LROPoller[KeyVaultCertificate | CertificateOperation] , Link: https://learn.microsoft.com/en-us/python/api/azure-keyvault-certificates/azure.keyvault.certificates.certificateclient?view=azure-python&branch=main"
@@ -505,12 +510,27 @@
                 "Description": "Example: "
             },
             {
+                "IgnoreText": "lowerker_items",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
+                "IgnoreText": "is_xml_model",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
+                "IgnoreText": "enable_additional_properties_sending",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
                 "IgnoreText": "pop",
                 "Usage":"contains",
                 "Description": "Example: pop(k, [d]) , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
             },
             {
-                "IgnoreText": "setdeault",
+                "IgnoreText": "setdefault",
                 "Usage":"contains",
                 "Description": "Example: setdefault(key, default=None, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
             },
@@ -565,39 +585,59 @@
         "Rule": "MissingContentValidation",
         "IgnoreList": [
             {
+                "IgnoreText": "lowerker_items",
+                "Usage":"subset",
+                "Description": "Example: , Link: "
+            },
+            {
+                "IgnoreText": "is_xml_model",
+                "Usage":"subset",
+                "Description": "Example: , Link: "
+            },
+            {
+                "IgnoreText": "enable_additional_properties_sending",
+                "Usage":"subset",
+                "Description": "Example: , Link: "
+            },
+            {
                 "IgnoreText": "get",
-                "Usage":"equal",
+                "Usage":"subset",
                 "Description": "Example: get , Link: https://learn.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.blobprefix?view=azure-python#methods"
             },
             {
                 "IgnoreText": "has_key",
-                "Usage":"equal",
+                "Usage":"subset",
                 "Description": "Example: has_key , Link: https://learn.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.blobprefix?view=azure-python#methods"
             },
             {
                 "IgnoreText": "clear",
-                "Usage":"equal",
+                "Usage":"subset",
                 "Description": "Example: clear , Link: https://learn.microsoft.com/en-us/python/api/azure-ai-contentsafety/azure.ai.contentsafety.models.addorupdatetextblocklistitemsoptions?view=azure-python#methods"
             },
             {
                 "IgnoreText": "copy",
-                "Usage":"equal",
+                "Usage":"subset",
                 "Description": "Example: copy , Link: https://learn.microsoft.com/en-us/python/api/azure-ai-contentsafety/azure.ai.contentsafety.models.addorupdatetextblocklistitemsoptions?view=azure-python#methods"
             },
             {
                 "IgnoreText": "items",
-                "Usage":"equal",
+                "Usage":"subset",
                 "Description": "Example: items , Link: https://learn.microsoft.com/en-us/python/api/azure-ai-contentsafety/azure.ai.contentsafety.models.addorupdatetextblocklistitemsoptions?view=azure-python#methods"
             },
             {
                 "IgnoreText": "keys",
-                "Usage":"equal",
+                "Usage":"subset",
                 "Description": "Example: keys , Link: https://learn.microsoft.com/en-us/python/api/azure-ai-contentsafety/azure.ai.contentsafety.models.addorupdatetextblocklistitemsoptions?view=azure-python#methods"
             },
             {
                 "IgnoreText": "values",
-                "Usage":"equal",
+                "Usage":"subset",
                 "Description": "Example: values , Link: https://learn.microsoft.com/en-us/python/api/azure-ai-contentsafety/azure.ai.contentsafety.models.addorupdatetextblocklistitemsoptions?view=azure-python#methods"
+            },
+            {
+                "IgnoreText": "fromkeys",
+                "Usage":"subset",
+                "Description": "Example: fromkeys(value=None, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-data-tables/azure.data.tables.entitymetadata?view=azure-python&branch=main#azure-data-tables-entitymetadata-fromkeys"
             }
         ]
     }
