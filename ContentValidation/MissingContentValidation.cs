@@ -48,10 +48,6 @@ public class MissingContentValidation : IValidation
                 skipFlag = true;
                 continue;
             }
-            
-            Console.WriteLine($"Processing cell: {cell}");
-            Console.WriteLine($"Cell Text: '{cellText}'");
-            Console.WriteLine($"Cell HTML: '{cellHtml}'");
 
             // Usage: Check if it is an empty cell and get the href attribute of the nearest <a> tag with a specific class name before it. Finally, group and format these errors by position and number of occurrences.
             // Example: The Description column of the Parameter table is Empty.
