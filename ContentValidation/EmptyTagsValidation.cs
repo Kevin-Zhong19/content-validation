@@ -26,13 +26,13 @@ public class EmptyTagsValidation : IValidation
         var errorList = new List<string>();
 
         // Get all <li> elements
-        var liElements = page.Locator("main#main li").AllAsync();
-        // int count = await liElements.CountAsync();
+        var liElements = await page.Locator("main#main li").ElementHandlesAsync();
 
-        foreach (var li in await liElements)
+        foreach (var li in liElements)
         {
             // Get and trim inner text
-            var text = (await li.InnerTextAsync())?.Trim();
+            var rawText = await li.EvaluateAsync<string>("el => el.innerText");
+            var text = rawText?.Trim() ?? "";
 
             if (text == "")
             {
