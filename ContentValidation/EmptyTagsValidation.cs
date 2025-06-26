@@ -31,7 +31,7 @@ public class EmptyTagsValidation : IValidation
         foreach (var li in liElements)
         {
             // Get and trim inner text
-            var rawText = await li.EvaluateAsync<string>("el => el.innerText");
+            var rawText = await li.EvaluateAsync<string>("el => el.textContent");
             var text = rawText?.Trim() ?? "";
 
             if (text == "")
