@@ -85,8 +85,6 @@ public class TypeAnnotationValidation : IValidation
                 return findNearestHeading(element);
             }");
 
-            // string anchorLink = "No anchor link found, need to manually search for the issue on the page.";
-
             if (!string.IsNullOrEmpty(nearestHTagText))
             {
                 nearestHTagText = nearestHTagText.Replace("\n", "").Replace("\t", "");

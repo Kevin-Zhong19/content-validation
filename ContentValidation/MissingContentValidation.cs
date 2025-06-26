@@ -4,7 +4,7 @@ namespace UtilityLibraries;
 
 public class MissingContentValidation : IValidation
 {
-    private readonly IPlaywright _playwright;
+    private IPlaywright _playwright;
 
     public MissingContentValidation(IPlaywright playwright)
     {
