@@ -20,9 +20,9 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Microsoft.Azure.Search.Common'
-      ReadmeName: 'search/search-common'
-      jobDisplayName: 'AZURE_SEARCH_COMMON'
+      PackageName: 'microsoft-azure-devices-provisioning-transport-http'
+      ReadmeName: 'iot/microsoft.azure.devices.provisioning.transport.http'
+      jobDisplayName: 'MICROSOFT_AZURE_DEVICES_PROVISIONING_TRANSPORT_HTTP'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}

@@ -20,9 +20,9 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Microsoft.Azure.Search.Common'
-      ReadmeName: 'search/search-common'
-      jobDisplayName: 'AZURE_SEARCH_COMMON'
+      PackageName: 'microsoft-azure-core-newtonsoftjson'
+      ReadmeName: 'microsoft.azure.core.newtonsoftjson-readme'
+      jobDisplayName: 'MICROSOFT_AZURE_CORE_NEWTONSOFTJSON'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}

@@ -20,9 +20,9 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Microsoft.Azure.Search.Common'
-      ReadmeName: 'search/search-common'
-      jobDisplayName: 'AZURE_SEARCH_COMMON'
+      PackageName: 'azure-messaging-webpubsub-client'
+      ReadmeName: 'messaging.webpubsub.client-readme'
+      jobDisplayName: 'AZURE_MESSAGING_WEBPUBSUB_CLIENT'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}

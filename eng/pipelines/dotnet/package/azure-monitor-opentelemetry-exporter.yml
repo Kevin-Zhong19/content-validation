@@ -20,9 +20,9 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Microsoft.Azure.Search.Common'
-      ReadmeName: 'search/search-common'
-      jobDisplayName: 'AZURE_SEARCH_COMMON'
+      PackageName: 'azure-monitor-opentelemetry-exporter'
+      ReadmeName: 'monitor.opentelemetry.exporter-readme'
+      jobDisplayName: 'AZURE_MONITOR_OPENTELEMETRY_EXPORTER'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}

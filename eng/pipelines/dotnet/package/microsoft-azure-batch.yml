@@ -20,9 +20,9 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Microsoft.Azure.Search.Common'
-      ReadmeName: 'search/search-common'
-      jobDisplayName: 'AZURE_SEARCH_COMMON'
+      PackageName: 'microsoft-azure-batch'
+      ReadmeName: 'microsoft.azure.batch-readme'
+      jobDisplayName: 'MICROSOFT_AZURE_BATCH'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}

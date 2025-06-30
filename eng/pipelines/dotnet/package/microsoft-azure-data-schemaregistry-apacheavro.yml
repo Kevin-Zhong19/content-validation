@@ -20,9 +20,9 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Microsoft.Azure.Search.Common'
-      ReadmeName: 'search/search-common'
-      jobDisplayName: 'AZURE_SEARCH_COMMON'
+      PackageName: 'microsoft-azure-data-schemaregistry-apacheavro'
+      ReadmeName: 'microsoft.azure.data.schemaregistry.apacheavro-readme'
+      jobDisplayName: 'MICROSOFT_AZURE_DATA_SCHEMAREGISTRY_APACHEAVRO'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}
