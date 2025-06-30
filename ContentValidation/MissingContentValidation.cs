@@ -156,7 +156,7 @@ public class MissingContentValidation : IValidation
 
             foreach (var elementHandle in aElements)
             {
-                var linkText = (await elementHandle.InnerTextAsync())?.Trim();
+                var linkText = await elementHandle.EvaluateAsync<string>("el => el.textContent?.trim()");
                 if (linkText == nearestHTagText)
                 {
                     var href = await elementHandle.GetAttributeAsync("href");

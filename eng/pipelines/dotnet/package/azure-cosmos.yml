@@ -20,9 +20,9 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'microsoft-azure-devices-shared'
-      ReadmeName: 'iot/microsoft.azure.devices.shared'
-      jobDisplayName: 'MICROSOFT_AZURE_DEVICES_SHARED'
+      PackageName: 'azure-cosmos'
+      ReadmeName: 'cosmosdb/cosmosdb'
+      jobDisplayName: 'MICROSOFT_AZURE_COSMOS'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}
