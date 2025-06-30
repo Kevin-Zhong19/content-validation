@@ -355,12 +355,19 @@ public class GithubHelper
         return result;
     }
 
-    public static async Task CreateOrUpdateGitHubIssue(string owner, string repo, string githubToken, string packageName, string language){
+    public static string GetMappedValue(Dictionary<string, string> mappings, string key)
+    {
+        return mappings.ContainsKey(key) ? mappings[key] : key;
+    }
+
+    public static async Task CreateOrUpdateGitHubIssue(string owner, string repo, string githubToken, string packageName, string language)
+    {
         string apiUrl = $"https://api.github.com/repos/{owner}/{repo}/issues";
 
         List<string> succeedRules = GetSucceedRules();
 
-        if(succeedRules.Count == 0){
+        if (succeedRules.Count == 0)
+        {
             Console.WriteLine("No succeed rules found.");
             return;
         }
@@ -368,8 +375,27 @@ public class GithubHelper
         var allIssues = new List<JsonNode>();
         allIssues = GetAllGitHubIssues(apiUrl, githubToken);
 
-        foreach (var rule in succeedRules){
+        Dictionary<string, string> ruleMappings = new Dictionary<string, string>
+        {
+            { "MissingContentValidation", "Missing Content" },
+            { "GarbledTextValidation", "Garbled Text" },
+            { "InconsistentTextFormatValidation", "Inconsistent Text Format" },
+            { "DuplicateServiceValidation", "Duplicate Service" },
+            { "ExtraLabelValidation", "Extra Label" },
+            { "UnnecessarySymbolsValidation", "Unnecessary Symbols" },
+            { "InvalidTagsValidation", "Invalid Tags" },
+            { "CodeFormatValidation", "Code Format" }
+        };
+
+        foreach (var rule in succeedRules)
+        {
             string issueTitle = $"{packageName} content validation issues about {rule} for {language} sdk.";
+
+            if (language.ToLower() == "javascript")
+            {
+                string mappedRule = GetMappedValue(ruleMappings, rule);
+                issueTitle = $"[JS SDK][{packageName}]{mappedRule}";
+            }
             Console.WriteLine($"Searching issue with title: {issueTitle}");
 
             var matchingIssue = allIssues.FirstOrDefault(i => i["title"]?.GetValue<string>() == issueTitle);
@@ -386,12 +412,13 @@ public class GithubHelper
                 string searchPattern = "DiffIssues*.json";
                 var githubIssueBodyForJson = GenerateSpecificIssueJson(rule, searchPattern);
 
-                if(githubIssueBodyForJson.Count != 0)
+                if (githubIssueBodyForJson.Count != 0)
                 {
                     string githubBodyOrCommentDiff = FormatToMarkdown(githubIssueBodyForJson);
 
                     await AddCommentToIssue(owner, repo, matchingIssue["number"]?.GetValue<int>(), githubBodyOrCommentDiff, githubToken);
-                }else
+                }
+                else
                 {
                     Console.WriteLine($"There are no new issue about {rule} in this pipeline run.");
                 }
@@ -404,7 +431,7 @@ public class GithubHelper
                 string searchPattern = "TotalIssues*.json";
                 var githubIssueBodyForJson = GenerateSpecificIssueJson(rule, searchPattern);
 
-                if(githubIssueBodyForJson.Count != 0)
+                if (githubIssueBodyForJson.Count != 0)
                 {
                     Console.WriteLine($"Opening a new issue with title: {issueTitle}");
 
@@ -425,7 +452,7 @@ public class GithubHelper
                             try
                             {
                                 bool retry = true;
-                                githubBodyOrCommentTotal  = FormatToMarkdown(githubIssueBodyForJson, retry);
+                                githubBodyOrCommentTotal = FormatToMarkdown(githubIssueBodyForJson, retry);
                                 await CreateNewIssueAsync(apiUrl, issueTitle, githubBodyOrCommentTotal, githubToken);
                             }
                             catch (Exception ex2)
@@ -438,7 +465,8 @@ public class GithubHelper
                     {
                         Console.WriteLine($"Error: {ex.Message}");
                     }
-                }else
+                }
+                else
                 {
                     Console.WriteLine($"There are no issue about {rule} in this pipeline run.");
                 }

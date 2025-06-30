@@ -236,6 +236,7 @@ namespace DataSource
                         Timeout = 60000 // Timeout 60000ms
                     });
                     Console.WriteLine("Page loaded successfully");
+                    Console.WriteLine($"Current page: {pagelink}");
                 }
                 catch (TimeoutException)
                 {

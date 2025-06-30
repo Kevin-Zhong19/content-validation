@@ -31,7 +31,7 @@ parameters:
   default: ''
 - name: Language
   type: string
-  default: 'Java'
+  default: 'DotNet'
 
 jobs:
   - job: ${{ parameters.jobDisplayName }}
