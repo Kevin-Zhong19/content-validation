@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-iot-deviceupdate'
+      PackageName: 'Azure.Iot.Deviceupdate'
       ReadmeName: 'iot.deviceupdate-readme'
       jobDisplayName: 'AZURE_IOT_DEVICEUPDATE'
       DotNetSdkVersion: '8.0.x'

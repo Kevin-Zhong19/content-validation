@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-verticals-agrifood-farming'
+      PackageName: 'Azure.Verticals.Agrifood.Farming'
       ReadmeName: 'farmbeats/farmbeats'
       jobDisplayName: 'AZURE_VERTICALS_AGRIFOOD_FARMING'
       DotNetSdkVersion: '8.0.x'

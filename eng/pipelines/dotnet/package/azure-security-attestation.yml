@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-security-attestation'
+      PackageName: 'Azure.Security.Attestation'
       ReadmeName: 'security.attestation-readme'
       jobDisplayName: 'AZURE_SECURITY_ATTESTATION'
       DotNetSdkVersion: '8.0.x'

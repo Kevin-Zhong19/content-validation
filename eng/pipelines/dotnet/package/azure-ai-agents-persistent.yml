@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-agents-persistent'
+      PackageName: 'Azure.Ai.Agents.Persistent'
       ReadmeName: 'ai.agents.persistent-readme'
       jobDisplayName: 'AZURE_AI_AGENTS_PERSISTENT'
       DotNetSdkVersion: '8.0.x'

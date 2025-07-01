@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-storage-blobs'
+      PackageName: 'Azure.Storage.Blobs'
       ReadmeName: 'storage.blobs-readme'
       jobDisplayName: 'AZURE_STORAGE_BLOBS'
       DotNetSdkVersion: '8.0.x'

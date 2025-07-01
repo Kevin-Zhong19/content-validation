@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-resourcemanager-notificationhubs'
+      PackageName: 'Azure.Resourcemanager.Notificationhubs'
       ReadmeName: 'notificationhubs/notificationhubs'
       jobDisplayName: 'AZURE_RESOURCEMANAGER_NOTIFICATIONHUBS'
       DotNetSdkVersion: '8.0.x'

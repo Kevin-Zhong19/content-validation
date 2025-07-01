@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-storage-files-shares'
+      PackageName: 'Azure.Storage.Files.Shares'
       ReadmeName: 'storage.files.shares-readme'
       jobDisplayName: 'AZURE_STORAGE_FILES_SHARES'
       DotNetSdkVersion: '8.0.x'

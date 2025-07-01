@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-messaging-servicebus'
+      PackageName: 'Azure.Messaging.Servicebus'
       ReadmeName: 'messaging.servicebus-readme'
       jobDisplayName: 'AZURE_MESSAGING_SERVICEBUS'
       DotNetSdkVersion: '8.0.x'

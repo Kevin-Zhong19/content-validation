@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-analytics-purview-workflows'
+      PackageName: 'Azure.Analytics.Purview.Workflows'
       ReadmeName: 'purview/purviewworkflow'
       jobDisplayName: 'AZURE_ANALYTICS_PURVIEW_WORKFLOWS'
       DotNetSdkVersion: '8.0.x'

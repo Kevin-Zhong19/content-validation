@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-provisioning'
+      PackageName: 'Azure.Provisioning'
       ReadmeName: 'provisioning-readme'
       jobDisplayName: 'AZURE_PROVISIONING'
       DotNetSdkVersion: '8.0.x'

@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-communication-messages'
+      PackageName: 'Azure.Communication.Messages'
       ReadmeName: 'communication.messages-readme'
       jobDisplayName: 'AZURE_COMMUNICATION_MESSAGES'
       DotNetSdkVersion: '8.0.x'

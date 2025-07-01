@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-health-insights-radiologyinsight'
+      PackageName: 'Azure.Health.Insights.Radiologyinsight'
       ReadmeName: 'health.insights.radiologyinsights-readme'
       jobDisplayName: 'AZURE_HEALTH_INSIGHTS_RADIOLOGYINSIGHT'
       DotNetSdkVersion: '8.0.x'

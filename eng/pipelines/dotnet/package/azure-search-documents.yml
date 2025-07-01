@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-search-documents'
+      PackageName: 'Azure.Search.Documents'
       ReadmeName: 'search.documents-readme'
       jobDisplayName: 'MICROSOFT_AZURE_SEARCH'
       DotNetSdkVersion: '8.0.x'

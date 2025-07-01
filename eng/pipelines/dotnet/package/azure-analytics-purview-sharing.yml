@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-analytics-purview-sharing'
+      PackageName: 'Azure.Analytics.Purview.Sharing'
       ReadmeName: 'purview/purviewsharing'
       jobDisplayName: 'AZURE_ANALYTICS_PURVIEW_SHARING'
       DotNetSdkVersion: '8.0.x'

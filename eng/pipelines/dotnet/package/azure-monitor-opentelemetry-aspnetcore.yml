@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-monitor-opentelemetry-aspnetcore'
+      PackageName: 'Azure.Monitor.Opentelemetry.Aspnetcore'
       ReadmeName: 'monitor.opentelemetry.aspnetcore-readme'
       jobDisplayName: 'AZURE_MONITOR_OPENTELEMETRY_ASPNETCORE'
       DotNetSdkVersion: '8.0.x'

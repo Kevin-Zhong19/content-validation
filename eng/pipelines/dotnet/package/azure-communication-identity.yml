@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-communication-identity'
+      PackageName: 'Azure.Communication.Identity'
       ReadmeName: 'communication.identity-readme'
       jobDisplayName: 'AZURE_COMMUNICATION_IDENTITY'
       DotNetSdkVersion: '8.0.x'

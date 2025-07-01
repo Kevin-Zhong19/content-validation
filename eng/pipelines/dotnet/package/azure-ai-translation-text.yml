@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-translation-text'
+      PackageName: 'Azure.Ai.Translation.Text'
       ReadmeName: 'ai.translation.text-readme'
       jobDisplayName: 'AZURE_AI_TRANSLATION_TEXT'
       DotNetSdkVersion: '8.0.x'

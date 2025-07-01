@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-openai'
+      PackageName: 'Azure.Ai.Openai'
       ReadmeName: 'ai.openai-readme'
       jobDisplayName: 'AZURE_AI_OPENAI'
       DotNetSdkVersion: '8.0.x'

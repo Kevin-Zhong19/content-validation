@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-communication-email'
+      PackageName: 'Azure.Communication.Email'
       ReadmeName: 'communication.email-readme'
       jobDisplayName: 'AZURE_COMMUNICATION_EMAIL'
       DotNetSdkVersion: '8.0.x'

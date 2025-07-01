@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-resourcemanager-defendereasm'
+      PackageName: 'Azure.Resourcemanager.Defendereasm'
       ReadmeName: 'defendereasm/defendereasm'
       jobDisplayName: 'AZURE_RESOURCEMANAGER_DEFENDEREASM'
       DotNetSdkVersion: '8.0.x'

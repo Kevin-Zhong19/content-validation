@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-developer-loadtesting'
+      PackageName: 'Azure.Developer.Loadtesting'
       ReadmeName: 'developer.loadtesting-readme'
       jobDisplayName: 'AZURE_DEVELOPER_LOADTESTING'
       DotNetSdkVersion: '8.0.x'

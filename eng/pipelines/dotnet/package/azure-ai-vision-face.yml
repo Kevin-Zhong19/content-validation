@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-vision-face'
+      PackageName: 'Azure.Ai.Vision.Face'
       ReadmeName: 'cognitiveservices/face'
       jobDisplayName: 'AZURE_AI_VISION_FACE'
       DotNetSdkVersion: '8.0.x'

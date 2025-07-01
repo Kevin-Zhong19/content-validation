@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-monitor-opentelemetry-exporter'
+      PackageName: 'Azure.Monitor.Opentelemetry.Exporter'
       ReadmeName: 'monitor.opentelemetry.exporter-readme'
       jobDisplayName: 'AZURE_MONITOR_OPENTELEMETRY_EXPORTER'
       DotNetSdkVersion: '8.0.x'

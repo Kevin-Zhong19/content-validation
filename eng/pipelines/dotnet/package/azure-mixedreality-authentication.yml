@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-mixedreality-authentication'
+      PackageName: 'Azure.Mixedreality.Authentication'
       ReadmeName: 'mixedreality.authentication-readme'
       jobDisplayName: 'AZURE_MIXEDREALITY_AUTHENTICATION'
       DotNetSdkVersion: '8.0.x'

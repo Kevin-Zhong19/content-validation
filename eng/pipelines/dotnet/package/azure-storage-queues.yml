@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-storage-queues'
+      PackageName: 'Azure.Storage.Queues'
       ReadmeName: 'storage.queues-readme'
       jobDisplayName: 'AZURE_STORAGE_QUEUES'
       DotNetSdkVersion: '8.0.x'

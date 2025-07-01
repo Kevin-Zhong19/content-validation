@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-health-insights-cancerprofiling'
+      PackageName: 'Azure.Health.Insights.Cancerprofiling'
       ReadmeName: 'cognitiveservices/healthinsightscancerprofiling'
       jobDisplayName: 'AZURE_HEALTH_INSIGHTS_CANCERPROFILING'
       DotNetSdkVersion: '8.0.x'

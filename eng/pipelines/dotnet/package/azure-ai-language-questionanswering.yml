@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-language-questionanswering'
+      PackageName: 'Azure.Ai.Language.Questionanswering'
       ReadmeName: 'ai.language.questionanswering-readme'
       jobDisplayName: 'AZURE_AI_LANGUAGE_QUESTIONANSWERING'
       DotNetSdkVersion: '8.0.x'

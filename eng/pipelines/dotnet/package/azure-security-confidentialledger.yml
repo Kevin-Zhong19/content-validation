@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-security-confidentialledger'
+      PackageName: 'Azure.Security.Confidentialledger'
       ReadmeName: 'security.confidentialledger-readme'
       jobDisplayName: 'AZURE_SECURITY_CONFIDENTIALLEDGER'
       DotNetSdkVersion: '8.0.x'

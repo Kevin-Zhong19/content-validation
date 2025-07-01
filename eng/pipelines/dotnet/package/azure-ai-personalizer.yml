@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-personalizer'
+      PackageName: 'Azure.Ai.Personalizer'
       ReadmeName: 'cognitiveservices/personalizer'
       jobDisplayName: 'AZURE_AI_PERSONALIZER'
       DotNetSdkVersion: '8.0.x'

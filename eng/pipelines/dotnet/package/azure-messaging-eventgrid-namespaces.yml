@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-messaging-eventgrid-namespaces'
+      PackageName: 'Azure.Messaging.Eventgrid.Namespaces'
       ReadmeName: 'messaging.eventgrid.namespaces-readme'
       jobDisplayName: 'AZURE_MESSAGING_EVENTGRID_NAMESPACES'
       DotNetSdkVersion: '8.0.x'

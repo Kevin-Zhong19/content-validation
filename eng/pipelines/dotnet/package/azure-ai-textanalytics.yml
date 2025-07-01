@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-textanalytics'
+      PackageName: 'Azure.Ai.Textanalytics'
       ReadmeName: 'ai.textanalytics-readme'
       jobDisplayName: 'AZURE_AI_TEXTANALYTICS'
       DotNetSdkVersion: '8.0.x'

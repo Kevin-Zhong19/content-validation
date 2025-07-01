@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-ai-language-text-authoring'
+      PackageName: 'Azure.Ai.Language.Text.Authoring'
       ReadmeName: 'cognitiveservices/textauthoring'
       jobDisplayName: 'AZURE_AI_LANGUAGE_TEXT_AUTHORING'
       DotNetSdkVersion: '8.0.x'

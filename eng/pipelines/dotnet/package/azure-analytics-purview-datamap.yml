@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-analytics-purview-datamap'
+      PackageName: 'Azure.Analytics.Purview.Datamap'
       ReadmeName: 'purview/purviewdatamap'
       jobDisplayName: 'AZURE_ANALYTICS_PURVIEW_DATAMAP'
       DotNetSdkVersion: '8.0.x'

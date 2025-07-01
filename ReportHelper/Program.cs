@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NPOI.SS.Formula.Functions;
 
 namespace ReportHelper
 {
@@ -32,8 +33,16 @@ namespace ReportHelper
             string newDataPath = Path.Combine(rootDirectory, ConstData.TotalIssuesJsonFileName);
             List<TResult4Json> newDataList = new List<TResult4Json>();
 
+            Console.WriteLine($"Comparing data for {HostPackageName} in {language}...");
+            Console.WriteLine($"Owner: {owner}, Repo: {repo}, GitHub Token: {githubToken}");
+            Console.WriteLine($"Root Directory: {rootDirectory}");
+            Console.WriteLine($"New Data Path: {newDataPath}");
+            Console.WriteLine($"All Package Path: {allPackagePath}");
+            Console.WriteLine($"Host Package Name: {HostPackageName}");
+
             if (File.Exists(newDataPath))
             {
+                Console.WriteLine($"Reading new data from {newDataPath}");
                 newDataList = JsonSerializer.Deserialize<List<TResult4Json>>(File.ReadAllText(newDataPath)) ?? new List<TResult4Json>();
             }
 
@@ -51,10 +60,14 @@ namespace ReportHelper
                 }
             }
 
+            Console.WriteLine($"Found {oldDataList.Count} old data items for {HostPackageName} in {language}.");
+            Console.WriteLine($"Found {newDataList.Count} new data items for {HostPackageName} in {language}.");
             // Compare the two lists
             List<TResult4Json> differentList = new List<TResult4Json>();
             differentList = CompareLists(oldDataList, newDataList);
 
+            Console.WriteLine($"Found {differentList.Count} different items for {HostPackageName} in {language}.");
+            Console.WriteLine("Comparison completed.");
 
             if (differentList.Count != 0)
             {
@@ -68,12 +81,14 @@ namespace ReportHelper
 
                 // Update github issues
                 await GithubHelper.CreateOrUpdateGitHubIssue(owner, repo, githubToken, HostPackageName, language);
-            }else if (newDataList.Count != 0)
+            }
+            else if (newDataList.Count != 0)
             {
                 // Create github issues
                 await GithubHelper.CreateOrUpdateGitHubIssue(owner, repo, githubToken, HostPackageName, language);
 
-            }else
+            }
+            else
             {
                 Console.WriteLine($"There are no content validation issue with {HostPackageName} in {language}.");
             }
@@ -82,6 +97,7 @@ namespace ReportHelper
         {
             List<TResult4Json> differentList = new List<TResult4Json>();
 
+            Console.WriteLine($"Comparing {oldDataList.Count} old items with {newDataList.Count} new items...");
             foreach (var newItem in newDataList)
             {
                 var matchedOldItem = oldDataList.FirstOrDefault(oldItem =>
@@ -89,16 +105,22 @@ namespace ReportHelper
                         oldItem.ErrorInfo == newItem.ErrorInfo &&
                         oldItem.ErrorLink == newItem.ErrorLink
                     );
+
+                    Console.WriteLine($"Checking new item: {newItem.TestCase} - {newItem.ErrorInfo}");
                 //  new TResult is diffrent
                 if (matchedOldItem == null)
                 {
                     differentList.Add(newItem);
+                    Console.WriteLine($"New item added: {newItem.TestCase} - {newItem.ErrorInfo}");
                     continue;
                 }
+                Console.WriteLine($"Matched old item found: {matchedOldItem.TestCase} - {matchedOldItem.ErrorInfo}");
                 // new TResult is same , but locations of error is diffrent
                 List<string> differentLocationsList = CompareOfLocations(matchedOldItem.LocationsOfErrors!, newItem.LocationsOfErrors!);
+                Console.WriteLine($"Comparing locations for item: {newItem.TestCase} - {newItem.ErrorInfo}");
                 if (differentLocationsList.Count > 0)
                 {
+                    Console.WriteLine($"Different locations found for item: {newItem.TestCase} - {newItem.ErrorInfo}");
                     newItem.LocationsOfErrors = differentLocationsList;
                     differentList.Add(newItem);
                     continue;

@@ -20,7 +20,7 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'azure-messaging-webpubsub'
+      PackageName: 'Azure.Messaging.Webpubsub'
       ReadmeName: 'messaging.webpubsub-readme'
       jobDisplayName: 'AZURE_MESSAGING_WEBPUBSUB'
       DotNetSdkVersion: '8.0.x'
