@@ -643,6 +643,36 @@
                 "IgnoreText": "fromkeys",
                 "Usage":"subset",
                 "Description": "Example: fromkeys(value=None, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-data-tables/azure.data.tables.entitymetadata?view=azure-python&branch=main#azure-data-tables-entitymetadata-fromkeys"
+            },
+            {
+                "IgnoreText": "message",
+                "Usage":"subsetOfErrorClass",
+                "Description": "Example: , Link: "
+            },
+            {
+                "IgnoreText": "name",
+                "Usage":"subsetOfErrorClass",
+                "Description": "Example: , Link: "
+            },
+            {
+                "IgnoreText": "stack",
+                "Usage":"subsetOfErrorClass",
+                "Description": "Example: , Link: "
+            },
+            {
+                "IgnoreText": "entries",
+                "Usage":"subset",
+                "Description": "Example: , Link: "
+            },
+            {
+                "IgnoreText": "reduce",
+                "Usage":"subset",
+                "Description": "Example: , Link: "
+            },
+            {
+                "IgnoreText": "reduceRight",
+                "Usage":"subset",
+                "Description": "Example: , Link: "
             }
         ]
     }

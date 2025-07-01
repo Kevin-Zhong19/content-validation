@@ -13,7 +13,7 @@ parameters:
   default: ''
 - name: packages
   type: string
-  default: 'azure-storage-blobs-batch, azure-storage-blobs'
+  default: 'azure-communication-chat, azure-communication-common, azure-communication-email, azure-communication-identity, azure-communication-jobrouter, azure-communication-messages, azure-communication-phonenumbers, azure-messaging-eventgrid-namespaces, azure-messaging-eventgrid, azure-messaging-eventhubs-processor, azure-messaging-eventhubs, azure-messaging-servicebus, azure-messaging-webpubsub-client, azure-messaging-webpubsub, azure-search-documents, azure-security-attestation, azure-security-codetransparency, azure-security-confidentialledger, azure-security-keyvault-administration, azure-security-keyvault-certificates, azure-security-keyvault-keys, azure-security-keyvault-secrets, azure-storage-blobs-batch, azure-storage-blobs, azure-storage-datamovement-blobs, azure-storage-datamovement-files-shares, azure-storage-datamovement, azure-storage-files-datalake, azure-storage-files-shares, azure-storage-queues'
 - name: Branch
   type: string
   default: ''

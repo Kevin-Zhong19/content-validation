@@ -22,7 +22,7 @@ jobs:
       Branch: ${{ parameters.Branch }}
       PackageName: 'Azure.Storage.Blobs'
       ReadmeName: 'storage.blobs-readme'
-      jobDisplayName: 'AZURE_STORAGE_BLOB'
+      jobDisplayName: 'AZURE_STORAGE_BLOBS'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}

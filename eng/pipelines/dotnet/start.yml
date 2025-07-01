@@ -1,10 +1,10 @@
-name: Run switched packages content validation for DotNet
+name: Run switched packages content validation for .NET
 trigger: none
 
 parameters:
 - name: packages
   displayName: |
-      Comma-delimited list of packages to test against (by default, 'all' to run all). Example: 'azure-ai-contentsafety, azure-ai-documentintelligence'
+      Comma-delimited list of packages to test against (by default, 'all' to run all). Example: 'azure-communication-chat, azure-communication-common'
   type: string
   default: 'all'
 
@@ -16,7 +16,7 @@ parameters:
 
 - name: language
   displayName: |
-      You can choose the language for testing, only Python, Java supported now. We plan extent to JavaScript, .NET and Go in future. Example: Java
+      You can choose the language for testing, only Python, Java supported now. We plan extent to JavaScript, .NET and Go in future. Example: DotNet
   type: string
   default: 'DotNet'
   values:
