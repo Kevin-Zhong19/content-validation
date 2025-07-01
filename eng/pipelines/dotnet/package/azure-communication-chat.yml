@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Communication.Chat'
+      PackageName: 'azure-communication-chat'
+      CsvPackageName: 'Azure.Communication.Chat'
       ReadmeName: 'communication.chat-readme'
       jobDisplayName: 'AZURE_COMMUNICATION_CHAT'
       DotNetSdkVersion: '8.0.x'

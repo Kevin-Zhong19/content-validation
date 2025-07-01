@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Communication.Jobrouter'
+      PackageName: 'azure-communication-jobrouter'
+      CsvPackageName: 'Azure.Communication.Jobrouter'
       ReadmeName: 'communication.jobrouter-readme'
       jobDisplayName: 'AZURE_COMMUNICATION_JOBROUTER'
       DotNetSdkVersion: '8.0.x'

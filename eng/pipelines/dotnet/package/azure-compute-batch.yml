@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Compute.Batch'
+      PackageName: 'azure-compute-batch'
+      CsvPackageName: 'Azure.Compute.Batch'
       ReadmeName: 'batch/computebatch'
       jobDisplayName: 'AZURE_COMPUTE_BATCH'
       DotNetSdkVersion: '8.0.x'

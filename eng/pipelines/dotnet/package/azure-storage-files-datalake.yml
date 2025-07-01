@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Storage.Files.Datalake'
+      PackageName: 'azure-storage-files-datalake'
+      CsvPackageName: 'Azure.Storage.Files.Datalake'
       ReadmeName: 'storage/storage-filesdatalake'
       jobDisplayName: 'AZURE_STORAGE_FILES_DATALAKE'
       DotNetSdkVersion: '8.0.x'

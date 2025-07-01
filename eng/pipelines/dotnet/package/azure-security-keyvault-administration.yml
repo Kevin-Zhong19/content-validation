@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Security.Keyvault.Administration'
+      PackageName: 'azure-security-keyvault-administration'
+      CsvPackageName: 'Azure.Security.Keyvault.Administration'
       ReadmeName: 'security.keyvault.administration-readme'
       jobDisplayName: 'AZURE_SECURITY_KEYVAULT_ADMINISTRATION'
       DotNetSdkVersion: '8.0.x'

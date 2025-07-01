@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Projects'
+      PackageName: 'azure-ai-projects'
+      CsvPackageName: 'Azure.Ai.Projects'
       ReadmeName: 'cognitiveservices/aifoundry'
       jobDisplayName: 'AZURE_AI_PROJECTS'
       DotNetSdkVersion: '8.0.x'

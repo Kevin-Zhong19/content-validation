@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Inference'
+      PackageName: 'azure-ai-inference'
+      CsvPackageName: 'Azure.Ai.Inference'
       ReadmeName: 'cognitiveservices/aimodelinference'
       jobDisplayName: 'AZURE_AI_INFERENCE'
       DotNetSdkVersion: '8.0.x'

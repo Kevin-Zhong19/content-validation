@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Documentintelligence'
+      PackageName: 'azure-ai-documentintelligence'
+      CsvPackageName: 'Azure.Ai.Documentintelligence'
       ReadmeName: 'ai.documentintelligence-readme'
       jobDisplayName: 'AZURE_AI_DOCUMENTINTELLIGENCE'
       DotNetSdkVersion: '8.0.x'

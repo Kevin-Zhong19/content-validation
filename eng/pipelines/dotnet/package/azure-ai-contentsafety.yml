@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Contentsafety'
+      PackageName: 'azure-ai-contentsafety'
+      CsvPackageName: 'Azure.Ai.Contentsafety'
       ReadmeName: 'ai.contentsafety-readme'
       jobDisplayName: 'AZURE_AI_CONTENTSAFETY'
       DotNetSdkVersion: '8.0.x'

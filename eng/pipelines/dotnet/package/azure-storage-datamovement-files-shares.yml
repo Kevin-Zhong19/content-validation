@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Storage.Datamovement.Files.Shares'
+      PackageName: 'azure-storage-datamovement-files-shares'
+      CsvPackageName: 'Azure.Storage.Datamovement.Files.Shares'
       ReadmeName: 'storage.datamovement.files.shares-readme'
       jobDisplayName: 'AZURE_STORAGE_DATAMOVEMENT_FILES_SHARES'
       DotNetSdkVersion: '8.0.x'

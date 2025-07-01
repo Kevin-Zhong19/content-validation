@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Data.Tables'
+      PackageName: 'azure-data-tables'
+      CsvPackageName: 'Azure.Data.Tables'
       ReadmeName: 'data.tables-readme'
       jobDisplayName: 'AZURE_DATA_TABLES'
       DotNetSdkVersion: '8.0.x'

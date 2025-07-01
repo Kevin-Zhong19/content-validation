@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Cosmos'
+      PackageName: 'azure-cosmos'
+      CsvPackageName: 'Azure.Cosmos'
       ReadmeName: 'cosmosdb/cosmosdb'
       jobDisplayName: 'MICROSOFT_AZURE_COSMOS'
       DotNetSdkVersion: '8.0.x'

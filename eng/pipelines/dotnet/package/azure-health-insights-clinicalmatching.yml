@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Health.Insights.Clinicalmatching'
+      PackageName: 'azure-health-insights-clinicalmatching'
+      CsvPackageName: 'Azure.Health.Insights.Clinicalmatching'
       ReadmeName: 'cognitiveservices/healthinsightsclinicalmatching'
       jobDisplayName: 'AZURE_HEALTH_INSIGHTS_CLINICALMATCHING'
       DotNetSdkVersion: '8.0.x'

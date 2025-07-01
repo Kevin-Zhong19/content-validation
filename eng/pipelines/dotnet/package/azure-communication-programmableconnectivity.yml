@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Communication.Programmableconnectivity'
+      PackageName: 'azure-communication-programmableconnectivity'
+      CsvPackageName: 'Azure.Communication.Programmableconnectivity'
       ReadmeName: 'communication/programmableconnectivity'
       jobDisplayName: 'AZURE_COMMUNICATION_PROGRAMMABLECONNECTIVITY'
       DotNetSdkVersion: '8.0.x'

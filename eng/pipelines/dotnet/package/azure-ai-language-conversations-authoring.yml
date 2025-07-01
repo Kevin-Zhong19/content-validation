@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Language.Conversations.Authoring'
+      PackageName: 'azure-ai-language-conversations-authoring'
+      CsvPackageName: 'Azure.Ai.Language.Conversations.Authoring'
       ReadmeName: 'cognitiveservices/conversationsauthoring'
       jobDisplayName: 'AZURE_AI_LANGUAGE_CONVERSATIONS_AUTHORING'
       DotNetSdkVersion: '8.0.x'

@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Openai.Assistants'
+      PackageName: 'azure-ai-openai-assistants'
+      CsvPackageName: 'Azure.Ai.Openai.Assistants'
       ReadmeName: 'cognitiveservices/openaiassistants'
       jobDisplayName: 'AZURE_AI_OPENAI_ASSISTANTS'
       DotNetSdkVersion: '8.0.x'

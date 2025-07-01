@@ -30,7 +30,7 @@ namespace DataSource
             string? readme = config["ReadmeName"];
             string? language = config["Language"];
             string branch = config["Branch"]!;
-            string? package = language?.ToLower() != "javascript" ? config["PackageName"] : config["CsvPackageName"];
+            string? package = language?.ToLower() != "javascript" && language?.ToLower() != "dotnet" ? config["PackageName"] : config["CsvPackageName"];
             string? cookieName = config["CookieName"];
             string? cookieValue = config["CookieValue"];
 
