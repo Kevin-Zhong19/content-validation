@@ -34,6 +34,8 @@ namespace DataSource
             string? cookieName = config["CookieName"];
             string? cookieValue = config["CookieValue"];
 
+            bool isRest = false;
+
             string? versionSuffix = ChooseGAOrPreview(language, package);
 
             if (versionSuffix == null)
@@ -41,11 +43,30 @@ namespace DataSource
                 throw new ArgumentNullException(nameof(versionSuffix), "VersionSuffix cannot be null.");
             }
 
+            if (!isRest)
+            {
+                var existingUrls = TestLinkData.GetUrls(language ?? string.Empty, package ?? string.Empty, versionSuffix);
+
+                if (existingUrls.Count > 0)
+                {
+                    Console.WriteLine($"The package {package} with version {versionSuffix} already exists in the test link data.");
+                    ExportData(existingUrls);
+                    return;
+                }
+            }
+
             string? pageLink = GetPackagePageOverview(language, readme, versionSuffix, branch);
 
             List<string> allPages = new List<string>();
 
             await GetAllDataSource(allPages, language, versionSuffix, pageLink, cookieName ?? string.Empty, cookieValue ?? string.Empty, branch);
+
+            if (allPages.Count > 0)
+            {
+                Console.WriteLine($"Saving {allPages.Count} URLs to TestLink data...");
+                TestLinkData.AddUrls(language ?? string.Empty, package ?? string.Empty, versionSuffix, allPages);
+                Console.WriteLine("Data saved successfully.");
+            }
 
             ExportData(allPages);
         }
