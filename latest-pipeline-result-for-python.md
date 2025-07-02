@@ -1,4 +1,4 @@
 
 | id | package | status | issue link | created date of issue | update date of issue | run date of pipeline | pipeline run link |
 |----|---------|--------|------------|-----------------------|----------------------| ---------------------| ----------------- |
-| 1 | azure-storage-blob | Content issue found | https://github.com/Kevin-Zhong19/content-validation/issues/731 https://github.com/Kevin-Zhong19/content-validation/issues/732 https://github.com/Kevin-Zhong19/content-validation/issues/733 https://github.com/Kevin-Zhong19/content-validation/issues/734 https://github.com/Kevin-Zhong19/content-validation/issues/730  | Need Confirm | Need Confirm | 6/30/2025 8:33:42 AM | https://dev.azure.com/v-qzhong0565/v-qzhong-fullPython0626/_build/results?buildId=3 |
+| 1 | azure-ai-documentintelligence | Content issue found | https://github.com/Kevin-Zhong19/content-validation/issues/575 https://github.com/Kevin-Zhong19/content-validation/issues/576 https://github.com/Kevin-Zhong19/content-validation/issues/574  | Need Confirm | Need Confirm | 7/2/2025 7:37:18 AM | https://dev.azure.com/v-qzhong0565/v-qzhong-fullPython0626/_build/results?buildId=4 |
