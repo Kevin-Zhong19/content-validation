@@ -1,5 +1,85 @@
 [
     {
+        "Rule": "CommonValidation",
+        "IgnoreList": [
+            {
+                "IgnoreText": "from_dict",
+                "Usage":"contains",
+                "Description": "Example: from_dict(data, key_extractors=None, content_type=None) , Link: https://learn.microsoft.com/en-us/python/api/azure-iot-hub/azure.iot.hub.protocol.models.authentication_mechanism.authenticationmechanism?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "deserialize",
+                "Usage":"contains",
+                "Description": "Example: deserialize(data, content_type=None) , Link: https://learn.microsoft.com/en-us/python/api/azure-iot-hub/azure.iot.hub.protocol.models.authentication_mechanism.authenticationmechanism?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "serialize",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
+                "IgnoreText": "get",
+                "Usage":"contains",
+                "Description": "Example: get(key, default=None) , Link: https://learn.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.accesscontrolchangecounters?view=azure-python-preview&branch=main"
+            },
+            {
+                "IgnoreText": "has_key",
+                "Usage":"contains",
+                "Description": "Example: has_key(k) , Link: https://learn.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.accesscontrolchangefailure?view=azure-python-preview&branch=main"
+            },
+            {
+                "IgnoreText": "update",
+                "Usage":"contains",
+                "Description": "Example: update([E], **F) , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "values",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
+                "IgnoreText": "lowerker_items",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
+                "IgnoreText": "is_xml_model",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
+                "IgnoreText": "enable_additional_properties_sending",
+                "Usage":"contains",
+                "Description": "Example: "
+            },
+            {
+                "IgnoreText": "pop",
+                "Usage":"contains",
+                "Description": "Example: pop(k, [d]) , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "setdefault",
+                "Usage":"contains",
+                "Description": "Example: setdefault(key, default=None, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "popitem",
+                "Usage":"contains",
+                "Description": "Example: popitem() , Link: https://learn.microsoft.com/en-us/python/api/azure-schemaregistry/azure.schemaregistry.messagecontent?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "count",
+                "Usage":"contains",
+                "Description": "Example: count(value, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-data-tables/azure.data.tables.entityproperty?view=azure-python&branch=main"
+            },
+            {
+                "IgnoreText": "index",
+                "Usage":"contains",
+                "Description": "Example: index(value, start=0, stop=9223372036854775807, /) , Link: https://learn.microsoft.com/en-us/python/api/azure-cosmos/azure.cosmos.cosmoslist?view=azure-python-preview&branch=main"
+            }
+        ]
+    },
+    {
         "Rule": "ExtraLabelValidation",
         "IgnoreList": [
             {

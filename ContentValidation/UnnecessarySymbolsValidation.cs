@@ -14,6 +14,8 @@ public class UnnecessarySymbolsValidation : IValidation
     public TResult res = new TResult();
 
     // Prefix list for checking if the content before the "[" is in the list.
+    public List<IgnoreItem> commonIgnore = IgnoreData.GetIgnoreList("CommonValidation", "contains");
+
     public List<IgnoreItem> prefixList = IgnoreData.GetIgnoreList("UnnecessarySymbolsValidation", "prefix");
 
     // Star list for checking if the content start with symbol in the list.
@@ -81,7 +83,7 @@ public class UnnecessarySymbolsValidation : IValidation
             string[] lines = codeBlock.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in lines)
             {
-                if (startList.Any(item => line.Trim().Contains(item.IgnoreText)))
+                if (startList.Any(item => line.Trim().Contains(item.IgnoreText)) || commonIgnore.Any(item => line.Trim().Contains(item.IgnoreText)))
                 {
                     continue;
                 }
@@ -137,7 +139,7 @@ public class UnnecessarySymbolsValidation : IValidation
                     }
 
                     // This case is not an issue in java doc, we will move it in ignore pattern.
-                    if (containList01.Any(item => line.Contains(item.IgnoreText)))
+                    if (containList01.Any(item => line.Contains(item.IgnoreText)) || commonIgnore.Any(item => line.Contains(item.IgnoreText)))
                     {
                         continue;
                     }
