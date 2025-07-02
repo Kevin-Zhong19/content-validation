@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Anomalydetector'
+      PackageName: 'azure-ai-anomalydetector'
+      CsvPackageName: 'Azure.Ai.Anomalydetector'
       ReadmeName: 'cognitiveservices/anomalydetector'
       jobDisplayName: 'AZURE_AI_ANOMALYDETECTOR'
       DotNetSdkVersion: '8.0.x'

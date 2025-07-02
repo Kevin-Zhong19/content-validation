@@ -12,6 +12,7 @@ public class MissingContentValidation : IValidation
     }
 
     public List<IgnoreItem> ignoreList = IgnoreData.GetIgnoreList("MissingContentValidation", "subset");
+    public List<IgnoreItem> ignoreListOfErrorClass = IgnoreData.GetIgnoreList("MissingContentValidation", "subsetOfErrorClass");
 
     public async Task<TResult> Validate(string testLink)
     {
@@ -30,12 +31,12 @@ public class MissingContentValidation : IValidation
         // Process all cells
         foreach (var cell in cellElements)
         {
-            await ProcessCellAsync(cell, page, testLink, errorList, ignoreList, isColspan2: false);
+            await ProcessCellAsync(cell, page, testLink, errorList, ignoreList, ignoreListOfErrorClass, isColspan2: false);
         }
 
         foreach (var cell in cellElements2)
         {
-            await ProcessCellAsync(cell, page, testLink, errorList, ignoreList, isColspan2: true);
+            await ProcessCellAsync(cell, page, testLink, errorList, ignoreList, ignoreListOfErrorClass, isColspan2: true);
         }
 
         // Format the error list
@@ -65,7 +66,9 @@ public class MissingContentValidation : IValidation
         string testLink,
         List<string> errorList,
         List<IgnoreItem> ignoreList,
-        bool isColspan2 = false)
+        List<IgnoreItem> ignoreListOfErrorClass,
+        bool isColspan2 = false
+        )
     {
         var rawText = await cell.EvaluateAsync<string>("el => el.textContent");
         var cellText = rawText?.Trim() ?? "";
@@ -75,6 +78,15 @@ public class MissingContentValidation : IValidation
         {
             isIgnore = true;
             return;
+        }
+
+        if (testLink.Contains("javascript", StringComparison.OrdinalIgnoreCase) && testLink.Contains("errors", StringComparison.OrdinalIgnoreCase))
+        {
+            if (ignoreListOfErrorClass.Any(item => cellText.Equals(item.IgnoreText, StringComparison.OrdinalIgnoreCase)))
+            {
+                isIgnore = true;
+                return;
+            }
         }
 
         if (!isColspan2)
@@ -96,7 +108,7 @@ public class MissingContentValidation : IValidation
 
         var anchorLink = await GetAnchorLinkForCellAsync(cell, page, testLink);
 
-        if(anchorLink == "This is an ignore cell, please ignore it.")
+        if (anchorLink == "This is an ignore cell, please ignore it.")
         {
             return; // Skip if the anchor link is the ignore text
         }

@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Formrecognizer'
+      PackageName: 'azure-ai-formrecognizer'
+      CsvPackageName: 'Azure.Ai.Formrecognizer'
       ReadmeName: 'ai.formrecognizer-readme'
       jobDisplayName: 'AZURE_AI_FORMRECOGNIZER'
       DotNetSdkVersion: '8.0.x'

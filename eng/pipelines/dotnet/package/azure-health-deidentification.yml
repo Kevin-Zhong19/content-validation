@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Health.Deidentification'
+      PackageName: 'azure-health-deidentification'
+      CsvPackageName: 'Azure.Health.Deidentification'
       ReadmeName: 'health.deidentification-readme'
       jobDisplayName: 'AZURE_HEALTH_DEIDENTIFICATION'
       DotNetSdkVersion: '8.0.x'

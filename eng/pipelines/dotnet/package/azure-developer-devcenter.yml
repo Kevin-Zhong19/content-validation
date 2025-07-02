@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Developer.Devcenter'
+      PackageName: 'azure-developer-devcenter'
+      CsvPackageName: 'Azure.Developer.Devcenter'
       ReadmeName: 'developer.devcenter-readme'
       jobDisplayName: 'AZURE_DEVELOPER_DEVCENTER'
       DotNetSdkVersion: '8.0.x'

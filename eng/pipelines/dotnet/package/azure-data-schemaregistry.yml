@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Data.Schemaregistry'
+      PackageName: 'azure-data-schemaregistry'
+      CsvPackageName: 'Azure.Data.Schemaregistry'
       ReadmeName: 'data.schemaregistry-readme'
       jobDisplayName: 'AZURE_DATA_SCHEMAREGISTRY'
       DotNetSdkVersion: '8.0.x'

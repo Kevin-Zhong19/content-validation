@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Messaging.Eventhubs.Processor'
+      PackageName: 'azure-messaging-eventhubs-processor'
+      CsvPackageName: 'Azure.Messaging.Eventhubs.Processor'
       ReadmeName: 'messaging.eventhubs.processor-readme'
       jobDisplayName: 'AZURE_MESSAGING_EVENTHUBS_PROCESSOR'
       DotNetSdkVersion: '8.0.x'

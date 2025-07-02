@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Vision.Imageanalysis'
+      PackageName: 'azure-ai-vision-imageanalysis'
+      CsvPackageName: 'Azure.Ai.Vision.Imageanalysis'
       ReadmeName: 'ai.vision.imageanalysis-readme'
       jobDisplayName: 'AZURE_AI_VISION_IMAGEANALYSIS'
       DotNetSdkVersion: '8.0.x'

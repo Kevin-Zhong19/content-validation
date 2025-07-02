@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Monitor.Query'
+      PackageName: 'azure-monitor-query'
+      CsvPackageName: 'Azure.Monitor.Query'
       ReadmeName: 'monitor.query-readme'
       jobDisplayName: 'AZURE_MONITOR_QUERY'
       DotNetSdkVersion: '8.0.x'

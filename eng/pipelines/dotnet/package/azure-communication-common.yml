@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Communication.Common'
+      PackageName: 'azure-communication-common'
+      CsvPackageName: 'Azure.Communication.Common'
       ReadmeName: 'communication.common-readme'
       jobDisplayName: 'AZURE_COMMUNICATION_COMMON'
       DotNetSdkVersion: '8.0.x'

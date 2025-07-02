@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Ai.Metricsadvisor'
+      PackageName: 'azure-ai-metricsadvisor'
+      CsvPackageName: 'Azure.Ai.Metricsadvisor'
       ReadmeName: 'ai.metricsadvisor-readme'
       jobDisplayName: 'AZURE_AI_METRICSADVISOR'
       DotNetSdkVersion: '8.0.x'

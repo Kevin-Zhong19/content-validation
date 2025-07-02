@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Communication.Callautomation'
+      PackageName: 'azure-communication-callautomation'
+      CsvPackageName: 'Azure.Communication.Callautomation'
       ReadmeName: 'communication.callautomation-readme'
       jobDisplayName: 'AZURE_COMMUNICATION_CALLAUTOMATION'
       DotNetSdkVersion: '8.0.x'

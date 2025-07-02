@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Security.Keyvault.Certificates'
+      PackageName: 'azure-security-keyvault-certificates'
+      CsvPackageName: 'Azure.Security.Keyvault.Certificates'
       ReadmeName: 'security.keyvault.certificates-readme'
       jobDisplayName: 'AZURE_SECURITY_KEYVAULT_CERTIFICATES'
       DotNetSdkVersion: '8.0.x'

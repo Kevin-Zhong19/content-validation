@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Digitaltwins.Core'
+      PackageName: 'azure-digitaltwins-core'
+      CsvPackageName: 'Azure.Digitaltwins.Core'
       ReadmeName: 'digitaltwins.core-readme'
       jobDisplayName: 'AZURE_DIGITALTWINS_CORE'
       DotNetSdkVersion: '8.0.x'

@@ -20,7 +20,8 @@ jobs:
   - template: /eng/pipelines/common/content-validation-for-dotnet.yml
     parameters:
       Branch: ${{ parameters.Branch }}
-      PackageName: 'Azure.Mixedreality.Remoterendering'
+      PackageName: 'azure-mixedreality-remoterendering'
+      CsvPackageName: 'Azure.Mixedreality.Remoterendering'
       ReadmeName: 'mixedreality.remoterendering-readme'
       jobDisplayName: 'AZURE_MIXEDREALITY_REMOTERENDERING'
       DotNetSdkVersion: '8.0.x'
