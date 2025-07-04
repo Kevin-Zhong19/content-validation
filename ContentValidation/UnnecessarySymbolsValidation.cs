@@ -17,6 +17,7 @@ public class UnnecessarySymbolsValidation : IValidation
     public List<IgnoreItem> commonIgnore = IgnoreData.GetIgnoreList("CommonValidation", "contains");
 
     public List<IgnoreItem> prefixList = IgnoreData.GetIgnoreList("UnnecessarySymbolsValidation", "prefix");
+    public List<IgnoreItem> ignoreListBefore = IgnoreData.GetIgnoreList("UnnecessarySymbolsValidation", "before]");
 
     // Star list for checking if the content start with symbol in the list.
     public List<IgnoreItem> startList = IgnoreData.GetIgnoreList("UnnecessarySymbolsValidation", "start");
@@ -165,6 +166,11 @@ public class UnnecessarySymbolsValidation : IValidation
                 if (match.Value.Equals("]"))
                 {
                     if (line.Contains("["))
+                    {
+                        continue;
+                    }
+                    
+                    if (ignoreListBefore.Any(item => line.Contains(item.IgnoreText)))
                     {
                         continue;
                     }
