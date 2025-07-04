@@ -11,7 +11,7 @@ There are 6 projects in this solution.
 
 - **ContentValidation**: Libraries container all verify rules.
 - **ContentValidation.Test**: Contains all test cases for content validation automation.
-- **DataSource**: Provide test data for test cases (all pages need to be verified on [Microsoft Learn website](https://learn.microsoft.com/en-us/python/api/overview/azure/?view=azure-python), all documents in this repository will use Python as examples. We plan to expand to Java/JS/.NET/Go in the future.)
+- **DataSource**: Provide test data for test cases (all pages need to be verified on [Microsoft Learn website](https://learn.microsoft.com/en-us/python/api/overview/azure/?view=azure-python), all documents in this repository will use Python as examples. We plan to expand to Java/JavaScript/.NET in the future.)
 - **IssuerHelper**: Summarize the issue status of the current pipeline run and record it in the latest-pipeline-result branch.
 - **ReportHelper**: Compare the total issue data of current pipeline with the summary data of the last pipeline, save it as excel or json file, and provide text in markdown format (used when creating/update github issues).
 

@@ -19,7 +19,7 @@ For a detailed introduction to the rules, please refer to the following table. Y
 | .NET | md | *TODO* |
 | JavaScript | md | *TODO* |
 
->Notes: Currently, the Python and Java rules have been fully developed. The JS rules are being designed and developed. They will be extended to .NET and Go in the future.
+>Notes: Currently, the Python and Java rules have been fully developed. The JavaScript rules are being designed and developed. They will be extended to .NET in the future.
 
 ## Configuration
 You can filter out some unexpected errors by configuring the `ignore.json` file. Compared to hard-coding filter conditions, it is more portable and flexible. Here is an example:
