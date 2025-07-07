@@ -23,7 +23,7 @@ jobs:
       PackageName: 'azure-search-documents'
       CsvPackageName: 'Azure.Search.Documents'
       ReadmeName: 'search.documents-readme'
-      jobDisplayName: 'MICROSOFT_AZURE_SEARCH'
+      jobDisplayName: 'AZURE_SEARCH_DOCUMENTS'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}
