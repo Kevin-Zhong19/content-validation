@@ -110,6 +110,15 @@ jobs:
       inputs:
         command: 'test'
         projects: 'ContentValidation.Test/ContentValidation.Test.csproj'
+        arguments: '-e BROWSER=chromium --filter Category=CommonTest'
+        testRunTitle: 'Content Validation Testing Start'
+      continueOnError: true
+
+    - task: DotNetCoreCLI@2
+      displayName: Run test case
+      inputs:
+        command: 'test'
+        projects: 'ContentValidation.Test/ContentValidation.Test.csproj'
         arguments: '-e BROWSER=chromium --filter Category=DotNetTest'
         testRunTitle: 'Content Validation Testing Start'
       continueOnError: true
