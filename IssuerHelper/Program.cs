@@ -341,6 +341,12 @@ namespace IssuerHelper
                 Console.WriteLine($"Occurrence error when creating md file: {ex.Message}");
             }
         }
+
+        public static string GetMappedValue(Dictionary<string, string> mappings, string key)
+        {
+            return mappings.ContainsKey(key) ? mappings[key] : key;
+        }
+        
         // Need to confirm with Yuchao:
         // static JToken? GetIssueInfo(string package, string githubToken, string language, string owner, string repo)
         static string? GetIssueInfo(string package, string githubToken, string language, string owner, string repo)
@@ -350,13 +356,14 @@ namespace IssuerHelper
             string packageFilePath = $"../Artifacts/{package}";
             string ruleStatusFilePath = Path.Combine(packageFilePath, "RuleStatus.json");
 
-            if (File.Exists(ruleStatusFilePath)){
+            if (File.Exists(ruleStatusFilePath))
+            {
                 string ruleStatusJsonContent = File.ReadAllText(ruleStatusFilePath);
                 try
                 {
                     // Parse JSON Array
                     var jsonArray = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(ruleStatusJsonContent);
-        
+
                     if (jsonArray != null)
                     {
                         foreach (var item in jsonArray)
@@ -377,13 +384,35 @@ namespace IssuerHelper
                 }
             }
 
-            if(succeedRules.Count == 0){
+            if (succeedRules.Count == 0)
+            {
                 Console.WriteLine("No succeed rules found.");
                 return issueLinks;
             }
 
             string apiUrl = $"https://api.github.com/repos/{owner}/{repo}/issues";
             JArray allIssues = new JArray();
+
+            Dictionary<string, string> ruleMappings = new Dictionary<string, string>
+            {
+                { "TypeAnnotationValidation", "Missing Type Annotation" },
+                { "MissingContentValidation", "Missing Content" },
+                { "GarbledTextValidation", "Garbled Text" },
+                { "InconsistentTextFormatValidation", "Inconsistent Text Format" },
+                { "DuplicateServiceValidation", "Duplicate Service" },
+                { "ExtraLabelValidation", "Extra Label" },
+                { "UnnecessarySymbolsValidation", "Unnecessary Symbols" },
+                { "InvalidTagsValidation", "Invalid Tags" },
+                { "CodeFormatValidation", "Code Format" }
+            };
+
+            Dictionary<string, string> languageMappings = new Dictionary<string, string>
+            {
+                { "javascript", "JS SDK" },
+                { "python", "Python SDK" },
+                { "java", "Java SDK" },
+                { "dotnet", "DotNet SDK" }
+            };
 
             try
             {
@@ -393,7 +422,7 @@ namespace IssuerHelper
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", githubToken);
                     string? linkHeader = null;
 
-                    while(true)
+                    while (true)
                     {
                         HttpResponseMessage response = client.GetAsync(apiUrl).Result;
                         response.EnsureSuccessStatusCode();
@@ -422,8 +451,11 @@ namespace IssuerHelper
                         }
                     }
 
-                    foreach (var rule in succeedRules){
-                        string issueTitle = $"{package} content validation issues about {rule} for {language} sdk.";
+                    foreach (var rule in succeedRules)
+                    {
+                        string mappedRule = GetMappedValue(ruleMappings, rule);
+                        string mappedLanguage = GetMappedValue(languageMappings, language.ToLower());
+                        string issueTitle = $"[{mappedLanguage}][{package}]{mappedRule}";
 
                         var matchingIssue = allIssues.FirstOrDefault(i => (string?)i["title"] == issueTitle);
 

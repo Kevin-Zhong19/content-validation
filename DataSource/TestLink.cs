@@ -1,30 +1,14 @@
 using System.Text.Json;
 
-public class TestLinkDataObject
-{
-    public required string Language { get; set; }
-    public List<TestLinkItem> TestLink { get; set; } = new List<TestLinkItem>();
-
-    public TestLinkDataObject() { }
-
-    public TestLinkDataObject(string language, List<TestLinkItem> testLink)
-    {
-        Language = language;
-        TestLink = testLink;
-    }
-}
-
 public class TestLinkItem
 {
-    public required string PackageName { get; set; }
     public required string Version { get; set; }
     public List<string> Url { get; set; } = new List<string>();
 
     public TestLinkItem() { }
 
-    public TestLinkItem(string packageName, string version, List<string> url)
+    public TestLinkItem(string version, List<string> url)
     {
-        PackageName = packageName;
         Version = version;
         Url = url;
     }
@@ -32,96 +16,101 @@ public class TestLinkItem
 
 public class TestLinkData
 {
-    public static List<TestLinkDataObject> TestLinkDataObjectList { get; set; } = new();
-    private static readonly string FilePath = "testlink.json";
+    private static readonly string DataFolderPath = "../DataSource/DataFolder";
 
-    static TestLinkData()
+    private static string GetFilePath(string language, string packageName)
     {
-        if (!File.Exists(FilePath))
-        {
-            throw new FileNotFoundException("File not found", FilePath);
-        }
-
-        string jsonContent = File.ReadAllText(FilePath);
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        };
-        TestLinkDataObjectList = JsonSerializer.Deserialize<List<TestLinkDataObject>>(jsonContent, options) ?? new List<TestLinkDataObject>();
+        return Path.Combine(DataFolderPath, language, $"{packageName}.json");
     }
 
-    public static List<string> GetUrls(string language, string packageName, string version)
+    private static List<TestLinkItem> LoadPackageData(string language, string packageName)
     {
+        string filePath = GetFilePath(language, packageName);
+        
+        if (!File.Exists(filePath))
+        {
+            return new List<TestLinkItem>();
+        }
+
         try
         {
-            var testLinkObject = TestLinkDataObjectList.Find(x => x.Language.Equals(language, StringComparison.OrdinalIgnoreCase));
-            var package = testLinkObject?.TestLink.Find(x => x.PackageName.Equals(packageName, StringComparison.OrdinalIgnoreCase) && x.Version.Equals(version, StringComparison.OrdinalIgnoreCase));
-            return package?.Url ?? new List<string>();
+            string jsonContent = File.ReadAllText(filePath);
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            return JsonSerializer.Deserialize<List<TestLinkItem>>(jsonContent, options) ?? new List<TestLinkItem>();
         }
         catch
         {
-            Console.WriteLine("There is no testLink.");
-            return new List<string>();
+            Console.WriteLine($"Error loading package data for {language}/{packageName}");
+            return new List<TestLinkItem>();
         }
+    }
+
+    private static void SavePackageData(string language, string packageName, List<TestLinkItem> testLinkItems)
+    {
+        string filePath = GetFilePath(language, packageName);
+        string? directoryPath = Path.GetDirectoryName(filePath);
         
-    }
-
-    public static void AddUrls(string language, string packageName, string version, List<string> urls)
-    {
-        ClearUrls(language, packageName, version);
-        
-        var testLinkObject = TestLinkDataObjectList.Find(x => x.Language.Equals(language, StringComparison.OrdinalIgnoreCase));
-
-        if (testLinkObject == null)
+        if (!string.IsNullOrEmpty(directoryPath) && !Directory.Exists(directoryPath))
         {
-            testLinkObject = new TestLinkDataObject
-            {
-                Language = language,
-                TestLink = new List<TestLinkItem>()
-            };
-            TestLinkDataObjectList.Add(testLinkObject);
+            Directory.CreateDirectory(directoryPath);
         }
 
-        var package = testLinkObject.TestLink.Find(x => x.PackageName.Equals(packageName, StringComparison.OrdinalIgnoreCase));
-
-        if (package == null)
-        {
-            package = new TestLinkItem
-            {
-                PackageName = packageName,
-                Version = version,
-                Url = new List<string>()
-            };
-            testLinkObject.TestLink.Add(package);
-        }
-
-        package.Url.AddRange(urls);
-
-        SaveToFile();
-    }
-
-    public static void ClearUrls(string language, string packageName, string version)
-    {
-        var testLinkObject = TestLinkDataObjectList.Find(x => x.Language.Equals(language, StringComparison.OrdinalIgnoreCase));
-        var package = testLinkObject?.TestLink.Find(x => x.PackageName.Equals(packageName, StringComparison.OrdinalIgnoreCase) && x.Version.Equals(version, StringComparison.OrdinalIgnoreCase));
-
-        if (package != null)
-        {
-            package.Url.Clear();
-            SaveToFile();
-        }
-    }
-
-    private static void SaveToFile()
-    {
         var options = new JsonSerializerOptions
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
-        string jsonContent = JsonSerializer.Serialize(TestLinkDataObjectList, options);
-        File.WriteAllText(FilePath, jsonContent);
+        string jsonContent = JsonSerializer.Serialize(testLinkItems, options);
+        File.WriteAllText(filePath, jsonContent);
+    }
+
+    public static List<string> GetUrls(string language, string packageName, string version)
+    {
+        try
+        {
+            var testLinkItems = LoadPackageData(language, packageName);
+            var item = testLinkItems.Find(x => x.Version.Equals(version, StringComparison.OrdinalIgnoreCase));
+            return item?.Url ?? new List<string>();
+        }
+        catch
+        {
+            Console.WriteLine("There is no testLink.");
+            return new List<string>();
+        }
+    }
+
+    public static void AddUrls(string language, string packageName, string version, List<string> urls)
+    {
+        var testLinkItems = LoadPackageData(language, packageName);
+        
+        // Remove existing entry for this version
+        testLinkItems.RemoveAll(x => x.Version.Equals(version, StringComparison.OrdinalIgnoreCase));
+        
+        // Add new entry
+        var newItem = new TestLinkItem
+        {
+            Version = version,
+            Url = new List<string>(urls)
+        };
+        testLinkItems.Add(newItem);
+
+        SavePackageData(language, packageName, testLinkItems);
+    }
+
+    public static void ClearUrls(string language, string packageName, string version)
+    {
+        var testLinkItems = LoadPackageData(language, packageName);
+        var item = testLinkItems.Find(x => x.Version.Equals(version, StringComparison.OrdinalIgnoreCase));
+
+        if (item != null)
+        {
+            item.Url.Clear();
+            SavePackageData(language, packageName, testLinkItems);
+        }
     }
 }

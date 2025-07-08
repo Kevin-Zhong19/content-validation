@@ -377,6 +377,7 @@ public class GithubHelper
 
         Dictionary<string, string> ruleMappings = new Dictionary<string, string>
         {
+            { "TypeAnnotationValidation", "Missing Type Annotation" },
             { "MissingContentValidation", "Missing Content" },
             { "GarbledTextValidation", "Garbled Text" },
             { "InconsistentTextFormatValidation", "Inconsistent Text Format" },
@@ -397,11 +398,11 @@ public class GithubHelper
 
         foreach (var rule in succeedRules)
         {
-            string issueTitle = $"{packageName} content validation issues about {rule} for {language} sdk.";
+            string issueTitle = "";
 
             string mappedRule = GetMappedValue(ruleMappings, rule);
             string mappedLanguage = GetMappedValue(languageMappings, language.ToLower());
-            issueTitle = $"[JS SDK][{packageName}]{mappedRule}";
+            issueTitle = $"[{mappedLanguage}][{packageName}]{mappedRule}";
             
             Console.WriteLine($"Searching issue with title: {issueTitle}");
 
