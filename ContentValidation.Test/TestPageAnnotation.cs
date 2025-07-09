@@ -37,7 +37,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestMissingTypeAnnotation(string testLink)
         {
-
             IValidation Validation = new TypeAnnotationValidation(playwright);
 
             var res = new TResult();

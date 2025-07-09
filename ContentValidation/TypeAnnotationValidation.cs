@@ -12,9 +12,8 @@ public class TypeAnnotationValidation : IValidation
         _playwright = playwright ?? throw new ArgumentNullException(nameof(playwright));
     }
 
-    public List<IgnoreItem> containList = IgnoreData.GetIgnoreList("TypeAnnotationValidation", "contains");
     public List<IgnoreItem> equalList = IgnoreData.GetIgnoreList("TypeAnnotationValidation", "equal");
-    public List<IgnoreItem> ignoreList = IgnoreData.GetIgnoreList("MissingContentValidation", "equal");
+    public List<IgnoreItem> ignoreList = IgnoreData.GetIgnoreList("CommonValidation", "contains");
 
     public class ParamError
     {
@@ -129,10 +128,7 @@ public class TypeAnnotationValidation : IValidation
         {
             return true;
         }
-        if (containList.Any(item => text.Contains(item.IgnoreText)))
-        {
-            return true;
-        }
+
         if (Regex.IsMatch(text, @"^[^=]+=[^=]+$"))  // pattern like a=b
         {
             return true;
@@ -236,7 +232,7 @@ public class TypeAnnotationValidation : IValidation
 
         foreach (var (key, paramList, element) in paramMap)
         {
-            if (containList.Any(item => key.Contains(item.IgnoreText)))
+            if (ignoreList.Any(item => key.Contains(item.IgnoreText)))
                 continue;
 
             string errorParams = "";

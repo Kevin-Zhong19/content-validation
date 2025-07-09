@@ -6,7 +6,6 @@ using Microsoft.Playwright;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Globalization;
-using Newtonsoft.Json;
 using CsvHelper;
 using CsvHelper.Configuration;
 
@@ -27,32 +26,81 @@ namespace DataSource
 
             IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
-            string? readme = config["ReadmeName"];
-            string? language = config["Language"];
-            string branch = config["Branch"]!;
-            string? package = language?.ToLower() != "javascript" && language?.ToLower() != "dotnet" ? config["PackageName"] : config["CsvPackageName"];
-            string? cookieName = config["CookieName"];
-            string? cookieValue = config["CookieValue"];
+            var appConfig = new AppConfig();
+            config.Bind(appConfig);
 
-            string? versionSuffix = ChooseGAOrPreview(language, package);
+            string branch = appConfig.Branch;
+            string cookieName = appConfig.CookieName;
+            string cookieValue = appConfig.CookieValue;
 
-            if (versionSuffix == null)
+            var languageMap = new Dictionary<string, List<PackageConfig>>
             {
-                throw new ArgumentNullException(nameof(versionSuffix), "VersionSuffix cannot be null.");
+                { "dotnet", appConfig.Languages.DotNet },
+                { "java", appConfig.Languages.Java },
+                { "javascript", appConfig.Languages.JavaScript },
+                { "python", appConfig.Languages.Python }
+            };
+
+            // Check if a specific language is passed as an argument
+            string? selectedLanguage = args.Length > 0 ? args[0].ToLower() : null;
+
+            foreach (var languageEntry in languageMap)
+            {
+                string language = languageEntry.Key;
+                List<PackageConfig> packages = languageEntry.Value;
+
+                // If a specific language is selected, skip other languages
+                if (selectedLanguage != null && language != selectedLanguage)
+                {
+                    continue;
+                }
+                
+                Console.WriteLine($"Processing language: {language}");
+
+                foreach (var packageConfig in packages)
+                {
+                    
+                    if (string.IsNullOrEmpty(packageConfig.ReadmeName) ||
+                        string.IsNullOrEmpty(packageConfig.PackageName))
+                    {
+                        Console.WriteLine($"Skipping empty configuration for {language}");
+                        continue;
+                    }
+
+                    Console.WriteLine($"Processing package: {packageConfig.PackageName}");
+
+                    string packageForVersionCheck = language?.ToLower() == "javascript" || language?.ToLower() == "dotnet"
+                        ? packageConfig.CsvPackageName
+                        : packageConfig.PackageName;
+
+                    string? versionSuffix = ChooseGAOrPreview(language, packageForVersionCheck);
+
+                    if (versionSuffix == null)
+                    {
+                        Console.WriteLine($"Could not determine version suffix for {packageConfig.PackageName}, skipping...");
+                        continue;
+                    }
+
+                    string? pageLink = GetPackagePageOverview(language, packageConfig.ReadmeName, versionSuffix, branch);
+
+                    List<string> allPages = new List<string>();
+
+                    await GetAllDataSource(allPages, language, versionSuffix, pageLink, cookieName, cookieValue, branch);
+
+                    if (allPages.Count > 0)
+                    {
+                        Console.WriteLine($"Saving {allPages.Count} URLs for {packageConfig.PackageName}...");
+                        TestLinkData.AddUrls(language, packageConfig.PackageName, versionSuffix, allPages);
+                        Console.WriteLine($"Data saved successfully for {packageConfig.PackageName}.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"No pages found for {packageConfig.PackageName}");
+                    }
+                }
             }
 
-            string? pageLink = GetPackagePageOverview(language, readme, versionSuffix, branch);
-
-            List<string> allPages = new List<string>();
-
-            await GetAllDataSource(allPages, language, versionSuffix, pageLink, cookieName ?? string.Empty, cookieValue ?? string.Empty, branch);
-
-            if (allPages.Count > 0)
-            {
-                Console.WriteLine($"Saving {allPages.Count} URLs to TestLink data...");
-                TestLinkData.AddUrls(language ?? string.Empty, package ?? string.Empty, versionSuffix, allPages);
-                Console.WriteLine("Data saved successfully.");
-            }
+            Console.WriteLine("All packages processed successfully.");
         }
 
         static string GetPackagePageOverview(string? language, string? readme, string versionSuffix, string branch = "")
@@ -560,5 +608,28 @@ namespace DataSource
             Map(m => m.VersionGA).Name("VersionGA");
             Map(m => m.VersionPreview).Name("VersionPreview");
         }
+    }
+
+    public class PackageConfig
+    {
+        public string ReadmeName { get; set; } = string.Empty;
+        public string PackageName { get; set; } = string.Empty;
+        public string CsvPackageName { get; set; } = string.Empty;
+    }
+
+    public class LanguageConfig
+    {
+        public List<PackageConfig> DotNet { get; set; } = new List<PackageConfig>();
+        public List<PackageConfig> Java { get; set; } = new List<PackageConfig>();
+        public List<PackageConfig> JavaScript { get; set; } = new List<PackageConfig>();
+        public List<PackageConfig> Python { get; set; } = new List<PackageConfig>();
+    }
+
+    public class AppConfig
+    {
+        public string Branch { get; set; } = string.Empty;
+        public string CookieName { get; set; } = string.Empty;
+        public string CookieValue { get; set; } = string.Empty;
+        public LanguageConfig Languages { get; set; } = new LanguageConfig();
     }
 }

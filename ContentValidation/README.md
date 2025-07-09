@@ -16,8 +16,8 @@ For a detailed introduction to the rules, please refer to the following table. Y
 | ------- | ---- | ----------- |
 | Python | [python-rules.md](../docs/rules-introduction/python-rules.md) | content validation rules designed for [Microsoft Learn website](https://learn.microsoft.com/en-us/python/api/overview/azure/?view=azure-python).|
 | Java | [java-rules.md](../docs/rules-introduction/java-rules.md) | content validation rules designed for [Microsoft Learn website](https://learn.microsoft.com/en-us/java/api/overview/azure/?view=azure-java).|
-| .NET | md | *TODO* |
-| JavaScript | md | *TODO* |
+| .NET | [dotnet-rules.md](../docs/rules-introduction/dotnet-rules.md) | content validation rules designed for [Microsoft Learn website](https://learn.microsoft.com/en-us/dotnet/api/overview/azure/?view=azure-dotnet).|
+| JavaScript | [javascript-rules.md](../docs/rules-introduction/javascript-rules.md) | content validation rules designed for [Microsoft Learn website](https://learn.microsoft.com/en-us/javascript/api/overview/azure/?view=azure-node-latest).|
 
 >Notes: Currently, the Python and Java rules have been fully developed. The JavaScript rules are being designed and developed. They will be extended to .NET in the future.
 

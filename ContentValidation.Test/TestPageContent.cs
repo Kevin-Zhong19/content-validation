@@ -70,8 +70,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestTableMissingContent(string testLink)
         {
-
-
             IValidation Validation = new MissingContentValidation(playwright);
 
             var res = new TResult();
@@ -92,8 +90,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
 
         [Test]
@@ -103,7 +99,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestGarbledText(string testLink)
         {
-
             IValidation Validation = new GarbledTextValidation(playwright);
 
             var res = new TResult();
@@ -124,8 +119,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
 
 
@@ -135,7 +128,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestInconsistentTextFormat(string testLink)
         {
-
             IValidation Validation = new InconsistentTextFormatValidation(playwright);
 
             var res = new TResult();
@@ -156,8 +148,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
 
 
@@ -166,7 +156,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestErrorDisplay(string testLink)
         {
-
             IValidation Validation = new ErrorDisplayValidation(playwright);
 
             var res = new TResult();
@@ -187,8 +176,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
 
 
@@ -197,7 +184,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestEmptyTags(string testLink)
         {
-
             IValidation Validation = new EmptyTagsValidation(playwright);
 
             var res = new TResult();
@@ -218,8 +204,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
 
 
@@ -228,8 +212,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(DuplicateTestLink))]
         public async Task TestDuplicateService(string testLink)
         {
-
-
             IValidation Validation = new DuplicateServiceValidation(playwright);
 
             var res = new TResult();
@@ -250,8 +232,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
     }
 }

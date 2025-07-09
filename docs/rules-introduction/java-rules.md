@@ -40,33 +40,34 @@ This document introduces 6 rules designed for Java Data SDK on [Microsoft Learn 
 
   ```csharp
 
-        // Define a list (labelList) containing various HTML tags and entities.
-        var labelList = new List<string> {
-            "/p>",
-            "<br",
-            "<span",
-            "<div",
-            "<table",
-            "<img",
-            ...
-        };
+    // Define a list (labelList) containing various HTML tags and entities.
+    var labelList = new List<string> {
+        "/p>",
+        "<br",
+        "<span",
+        "<div",
+        "<table",
+        "<img",
+        ...
+    };
 
-        // Iterate through labelList and check if the page content contains any of the tags. If any tags are found, add them to the errorList.
-        foreach (var label in labelList)
+    // Iterate through labelList and check if the page content contains any of the tags. If any tags are found, add them to the errorList.
+    foreach (var label in labelList)
+    {
+        int index = 0;
+        // Count the number of all errors for the current label.
+        int count = 0;
+        while ((index = htmlText.IndexOf(label, index)) != -1)
         {
-            int index = 0;
-            // Count the number of all errors for the current label.
-            int count = 0;
-            while ((index = htmlText.IndexOf(label, index)) != -1)
-            {
-                ...
-                count++;
-                sum++;
-                index += label.Length;
-            }
-
             ...
+            count++;
+            sum++;
+            index += label.Length;
         }
+
+        ...
+    }
+
   ```
 
 ### 2. UnnecessarySymbolsValidation
@@ -232,85 +233,66 @@ This document introduces 6 rules designed for Java Data SDK on [Microsoft Learn 
 
   ```csharp
 
-  // Fetch all th and td tags in the test page.
-  var cellElements = await page.Locator("td,th").AllAsync();
-
-  // Check if the cell is empty. If it is, retrieve the href attribute of the anchor tag above it for positioning.
-  foreach (var cell in cellElements)
-  {
-      var cellText = (await cell.InnerTextAsync()).Trim();
-
-      // Usage: Check if it is an empty cell and get the href attribute of the nearest <a> tag with a specific class name before it. Finally, group and format these errors by position and number of occurrences.
-      // Example: The Description column of the Parameter table is Empty.
-      // Link: https://learn.microsoft.com/en-us/python/api/azure-ai-textanalytics/azure.ai.textanalytics.aio.asyncanalyzeactionslropoller?view=azure-python
-      if (string.IsNullOrEmpty(cellText))
+    public bool isIgnore = false;
+    private async Task ProcessCellAsync(
+      IElementHandle cell,
+      IPage page,
+      string testLink,
+      List<string> errorList,
+      List<IgnoreItem> ignoreList,
+      List<IgnoreItem> ignoreListOfErrorClass,
+      bool isColspan2 = false
+      )
+    {
+      var rawText = await cell.EvaluateAsync<string>("el => el.textContent");
+      var cellText = rawText?.Trim() ?? "";
+  
+      // Skip ignored text
+      if (ignoreList.Any(item => cellText.Equals(item.IgnoreText, StringComparison.OrdinalIgnoreCase)))
       {
-          string anchorLink = "No anchor link found, need to manually search for empty cells on the page.";
-          var nearestHTagText = await cell.EvaluateAsync<string?>(@"element => {
-              function findNearestHeading(startNode) {
-                  let currentNode = startNode;
-
-                  while (currentNode && currentNode.tagName !== 'BODY' && currentNode.tagName !== 'HTML') {
-                      // Check the sibling nodes and child nodes of the current node
-                      let sibling = currentNode.previousElementSibling;
-                      while (sibling) {
-                          // Check if the sibling node itself is an <h2> or <h3>
-                          if (['H2', 'H3'].includes(sibling.tagName)) {
-                              return sibling.textContent || '';
-                          }
-
-                          // Recursively check the children of sibling nodes
-                          let childHeading = findNearestHeadingInChildren(sibling);
-                          if (childHeading) {
-                              return childHeading;
-                          }
-
-                          sibling = sibling.previousElementSibling;
-                      }
-
-                      // If not found in the sibling node, continue traversing upwards
-                      currentNode = currentNode.parentElement;
-                  }
-
-                  return null; // If no matching <h> tags are found
-              }
-
-              function findNearestHeadingInChildren(node) {
-                  // Traverse the child nodes and recursively search for <h2> or <h3>
-                  for (let child of node.children) {
-                      if (['H2', 'H3'].includes(child.tagName)) {
-                          return child.textContent || '';
-                      }
-                      let grandChildHeading = findNearestHeadingInChildren(child);
-                      if (grandChildHeading) {
-                          return grandChildHeading;
-                      }
-                  }
-                  return null;
-              }
-
-              return findNearestHeading(element);
-          }");
-
-          if (nearestHTagText != null) {
-              nearestHTagText = nearestHTagText.Replace("\n", "").Replace("\t", "");
-              var aLocators = page.Locator("#side-doc-outline a");
-              var aElements = await aLocators.ElementHandlesAsync();
-
-              foreach (var elementHandle in aElements)
+          isIgnore = true;
+          return;
+      }
+  
+      if (testLink.Contains("javascript", StringComparison.OrdinalIgnoreCase) && testLink.Contains("errors", StringComparison.OrdinalIgnoreCase))
+      {
+          if (ignoreListOfErrorClass.Any(item => cellText.Equals(item.IgnoreText, StringComparison.OrdinalIgnoreCase)))
+          {
+              isIgnore = true;
+              return;
+          }
+      }
+  
+      if (!isColspan2)
+      {
+          if (!string.IsNullOrEmpty(cellText))
+          {
+              isIgnore = false;
+              return;
+          }
+          else
+          {
+              if (isIgnore)
               {
-                  if(await elementHandle.InnerTextAsync() == nearestHTagText)
-                  {
-                      var href = await elementHandle.GetAttributeAsync("href");
-                      if (href != null) {
-                          anchorLink = testLink + href;
-                      }
-                  }
+                  isIgnore = false;
+                  return; // Skip if the cell is ignored
               }
           }
+      }
+  
+      var anchorLink = await GetAnchorLinkForCellAsync(cell, page, testLink);
+  
+      if (anchorLink == "This is an ignore cell, please ignore it.")
+      {
+          return; // Skip if the anchor link is the ignore text
+      }
+  
+      if (!anchorLink.Contains("#packages", StringComparison.OrdinalIgnoreCase) &&
+          !anchorLink.Contains("#modules", StringComparison.OrdinalIgnoreCase))
+      {
           errorList.Add(anchorLink);
       }
-  }
+    }
 
 
   ```
@@ -343,27 +325,27 @@ This document introduces 6 rules designed for Java Data SDK on [Microsoft Learn 
 
   ```csharp
 
-  // Get all text content of the current html.
-  var htmlText = await page.Locator("html").InnerTextAsync();
-
-  // Usage: This regular expression is used to extract the garbled characters in the format of ":ivar:request_id:/:param cert_file:/:param str proxy_addr:" from the text.
-  // Example: Initializer for X509 Certificate :param cert_file: The file path to contents of the certificate (or certificate chain)used to authenticate the device.
-  // Link: https://learn.microsoft.com/en-us/python/api/azure-iot-device/azure.iot.device?view=azure-python
-  string pattern = @":[\w]+(?:\s+[\w]+){0,2}:|Dictionary of <[^>]*·[^>]*>|Dictionary of <[^>]*\uFFFD[^>]*>";
-  MatchCollection matches = Regex.Matches(htmlText, pattern);
-
-  // Add the results of regular matching to errorList in a loop.
-  foreach (Match match in matches)
-  {
-      //Judge if an element is in the ignoreList.
-      bool shouldIgnore = ignoreList.Any(item => string.Equals(item.IgnoreText, match.Value, StringComparison.OrdinalIgnoreCase));
-
-      //If it is not an ignore element, it means that it is garbled text.
-      if (!shouldIgnore)
-      {
-          errorList.Add(match.Value);
-      }
-  }
+    // Get all text content of the current html.
+    var htmlText = await page.Locator("html").InnerTextAsync();
+  
+    // Usage: This regular expression is used to extract the garbled characters in the format of ":ivar:request_id:/:param cert_file:/:param str proxy_addr:" from the text.
+    // Example: Initializer for X509 Certificate :param cert_file: The file path to contents of the certificate (or certificate chain)used to authenticate the device.
+    // Link: https://learn.microsoft.com/en-us/python/api/azure-iot-device/azure.iot.device?view=azure-python
+    string pattern = @":[\w]+(?:\s+[\w]+){0,2}:|Dictionary of <[^>]*·[^>]*>|Dictionary of <[^>]*\uFFFD[^>]*>";
+    MatchCollection matches = Regex.Matches(htmlText, pattern);
+  
+    // Add the results of regular matching to errorList in a loop.
+    foreach (Match match in matches)
+    {
+        //Judge if an element is in the ignoreList.
+        bool shouldIgnore = ignoreList.Any(item => string.Equals(item.IgnoreText, match.Value, StringComparison.OrdinalIgnoreCase));
+  
+        //If it is not an ignore element, it means that it is garbled text.
+        if (!shouldIgnore)
+        {
+            errorList.Add(match.Value);
+        }
+    }
 
 
   ```
@@ -387,26 +369,26 @@ This document introduces 6 rules designed for Java Data SDK on [Microsoft Learn 
 
   ```csharp
 
-  //Get all service tags in the test page.
-  var aElements = await page.Locator("li.has-three-text-columns-list-items.is-unstyled a[data-linktype='relative-path']").AllAsync();
-
-  //Check if there are duplicate services.
-  foreach (var element in aElements)
-  {
-      var text = await element.InnerTextAsync();
-
-      //Store the names in the `HashSet`.
-      //When `HashSet` returns false, duplicate service names are stored in another array.
-      if (!set.Add(text))
-      {
-          errorList.Add(text);
-
-          res.Result = false;
-          res.ErrorLink = testLink;
-          res.NumberOfOccurrences += 1;
-      }
-
-  }
+    //Get all service tags in the test page.
+    var aElements = await page.Locator("li.has-three-text-columns-list-items.is-unstyled a[data-linktype='relative-path']").AllAsync();
+  
+    //Check if there are duplicate services.
+    foreach (var element in aElements)
+    {
+        var text = await element.InnerTextAsync();
+  
+        //Store the names in the `HashSet`.
+        //When `HashSet` returns false, duplicate service names are stored in another array.
+        if (!set.Add(text))
+        {
+            errorList.Add(text);
+  
+            res.Result = false;
+            res.ErrorLink = testLink;
+            res.NumberOfOccurrences += 1;
+        }
+  
+    }
 
 
   ```
@@ -463,32 +445,36 @@ This document introduces 6 rules designed for Java Data SDK on [Microsoft Learn 
 
   ```csharp
 
-    var res = new TResult();
-    var errorList = new List<string>();
-
     //Get all code content in the test page.
     var codeElements = await page.Locator("code").AllAsync();
-
+  
     //Check if there are wrong code format.
     foreach (var element in codeElements)
     {
         var codeText = await element.InnerTextAsync();
-
-        // Check for unnecessary space before import
-        var matches = Regex.Matches(codeText, @"^ import\s+[a-zA-Z_]\w*([.][a-zA-Z_]\w*)+;$", RegexOptions.Multiline);
-
-        foreach (Match match in matches)
+  
+        // Check the number of spaces at the beginning of the code line by line, and add errorList if it is an odd number. 
+        // This method is not the best solution. Currently, there is no library in C# that can check the format of Java code. 
+        // We can consider adding optimization in the future.
+        string[] lines = codeText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var line in lines)
         {
-            errorList.Add($"Unnecessary space before import: {match.Value}");
+            if(line.Trim().Length == 0)
+            {
+                continue; // Skip empty lines
+            }
+            var match = Regex.Match(line, @"^(\s*)");
+            if (match.Success)
+            {
+                int spaceCount = match.Groups[1].Value.Length;
+  
+                if (spaceCount % 2 != 0)
+                {
+                    errorList.Add($"Improper whitespace formatting detected in code snippet: `{line}`");
+                    break;
+                }
+            }
         }
-    }
-
-    if(errorList.Count > 0)
-    {
-        res.Result = false;
-        res.ErrorLink = testLink;
-        res.NumberOfOccurrences = errorList.Count;
-        res.ErrorInfo = "Have Incorrect Code Format: " + string.Join(",", errorList);
     }
 
   ```

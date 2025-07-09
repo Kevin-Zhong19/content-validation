@@ -54,7 +54,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestExtraLabel(string testLink)
         {
-
             IValidation Validation = new ExtraLabelValidation(playwright);
 
             var res = new TResult();
@@ -75,8 +74,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
 
         [Test]
@@ -86,7 +83,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestUnnecessarySymbols(string testLink)
         {
-
             var res = new TResult();
             try
             {
@@ -109,8 +105,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
 
         [Test]
@@ -118,7 +112,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestInvalidTags(string testLink)
         {
-
             var res = new TResult();
             try
             {
@@ -141,8 +134,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
         
         [Test]
@@ -150,7 +141,6 @@ namespace ContentValidation.Test
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestCodeFormat(string testLink)
         {
-
             var res = new TResult();
             try
             {
@@ -173,8 +163,6 @@ namespace ContentValidation.Test
             }
 
             Assert.That(res.Result, res.FormatErrorMessage());
-
-
         }
     }
 }

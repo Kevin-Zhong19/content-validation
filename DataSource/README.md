@@ -11,6 +11,8 @@ Need to configure `ReadmeName` and `Language` in the `appsettings.json` file in 
   "ReadmeName": "appconfiguration-readme",
   "Language": "Python",
   "Branch": "main",
+  "PackageName": "azure-appconfiguration",
+  "CsvPackageName": "",
   "CookieName": "",
   "CookieValue": ""
 }

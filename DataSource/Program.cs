@@ -164,12 +164,12 @@ namespace DataSource
                             else
                             {
                                 Console.WriteLine($"Package {package} has not both GA and Preview version in the table.");
-                                return null;
+                                return "GA";
                             }
                         }
                         else{
                             Console.WriteLine($"Package {package} not found in the CSV.");
-                            return null;
+                            return "GA";
                         }
                     }
                 }

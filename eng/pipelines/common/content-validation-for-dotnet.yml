@@ -106,7 +106,7 @@ jobs:
         projects: 'ContentValidation.Test/ContentValidation.Test.csproj'
 
     - task: DotNetCoreCLI@2
-      displayName: Run test case
+      displayName: Run Common test case
       inputs:
         command: 'test'
         projects: 'ContentValidation.Test/ContentValidation.Test.csproj'
@@ -115,7 +115,7 @@ jobs:
       continueOnError: false
 
     - task: DotNetCoreCLI@2
-      displayName: Run common test case
+      displayName: Run test case
       inputs:
         command: 'test'
         projects: 'ContentValidation.Test/ContentValidation.Test.csproj'
