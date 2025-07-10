@@ -66,7 +66,7 @@ namespace ContentValidation.Test
         [Category("PythonTest")]
         [Category("JavaTest")]
         [Category("JsTest")]
-        [Category("DotNetTest")]
+        // [Category("DotNetTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestTableMissingContent(string testLink)
         {
@@ -180,7 +180,7 @@ namespace ContentValidation.Test
 
 
         [Test]
-        // [Category("DotNetTest")]
+        [Category("DotNetTest")]
         [TestCaseSource(nameof(TestLinks))]
         public async Task TestEmptyTags(string testLink)
         {
