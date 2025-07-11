@@ -385,7 +385,9 @@ public class GithubHelper
             { "ExtraLabelValidation", "Extra Label" },
             { "UnnecessarySymbolsValidation", "Unnecessary Symbols" },
             { "InvalidTagsValidation", "Invalid Tags" },
-            { "CodeFormatValidation", "Code Format" }
+            { "CodeFormatValidation", "Code Format" },
+            { "EmptyTagsValidation", "Empty Tags" },
+            { "ErrorDisplayValidation", "Error Display" }
         };
 
         Dictionary<string, string> languageMappings = new Dictionary<string, string>
@@ -600,7 +602,9 @@ public class GithubHelper
             { "ExtraLabelValidation", "TestExtraLabel" },
             { "UnnecessarySymbolsValidation", "TestUnnecessarySymbols" },
             { "InvalidTagsValidation", "TestInvalidTags" },
-            { "CodeFormatValidation", "TestCodeFormat" }
+            { "CodeFormatValidation", "TestCodeFormat" },
+            { "EmptyTagsValidation", "TestEmptyTags" },
+            { "ErrorDisplayValidation", "TestErrorDisplay" }
         };
  
         string jsonContent = File.ReadAllText(jsonFilePath);
