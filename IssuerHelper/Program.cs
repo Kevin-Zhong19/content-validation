@@ -403,7 +403,9 @@ namespace IssuerHelper
                 { "ExtraLabelValidation", "Extra Label" },
                 { "UnnecessarySymbolsValidation", "Unnecessary Symbols" },
                 { "InvalidTagsValidation", "Invalid Tags" },
-                { "CodeFormatValidation", "Code Format" }
+                { "CodeFormatValidation", "Code Format" },
+                { "EmptyTagsValidation", "Empty Tags"},
+                { "ErrorDisplayValidation", "Error Display" }
             };
 
             Dictionary<string, string> languageMappings = new Dictionary<string, string>

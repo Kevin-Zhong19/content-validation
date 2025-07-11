@@ -23,7 +23,7 @@ jobs:
       PackageName: 'azure-cosmos'
       CsvPackageName: 'Azure.Cosmos'
       ReadmeName: 'cosmosdb/cosmosdb'
-      jobDisplayName: 'MICROSOFT_AZURE_COSMOS'
+      jobDisplayName: 'AZURE_COSMOS'
       DotNetSdkVersion: '8.0.x'
       GitHubPat: ${{ parameters.GitHubPat }}
       GitHubOwner: ${{ parameters.GitHubOwner }}
